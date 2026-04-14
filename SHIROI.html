@@ -1,5 +1,47 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span></script>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no" />
+<title>白井市PR動画コンテスト ｜ Metagri研究所 presents</title>
+<meta name="description" content="白井市 × Metagri研究所による地域PR動画コンテスト。動画生成AIを活用し、白井市の暮らしの魅力を30〜60秒のショート動画で発信。グランプリ作品は白井市公式PR動画として採用。" />
+
+<!-- OGP -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="白井市PR動画コンテスト ｜ Metagri研究所 presents" />
+<meta property="og:description" content="白井で叶える、ゆとりある暮らしを届けよう。動画生成AIで描く、白井市の魅力。グランプリは公式PR動画として採用！" />
+<meta property="og:image" content="http://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet" />
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="SHIROI.CSS" />
+<link rel="stylesheet" href="css/gallery.css" />
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+<div id="shiroi-contest-lp">
+
+<!-- ===== ヘッダーナビ ===== -->
+<header class="gl-header">
+  <div class="gl-header__inner">
+    <a href="/SHIROI.html" class="gl-header__logo">白井市PR動画コンテスト</a>
+    <nav class="gl-nav">
+      <a href="/SHIROI.html" class="gl-nav__link is-current" aria-current="page">コンテストTOP</a>
+      <a href="/gallery.html" class="gl-nav__link">作品ギャラリー</a>
+      <a href="#entry" class="gl-nav__link">応募する</a>
+    </nav>
+  </div>
+</header>
+
 <!-- ===== ① ヒーローセクション ===== -->
 
 <section id="hero">
@@ -13,7 +55,10 @@
 白井市の魅力をショート動画で発信。<br class="sp-only" />あなたの映像が街の未来をつくる。</p>
 
 <div class="hero-dates fade-in-up"><span class="date-badge accent">📝 応募受付：4月15日 〜 5月15日</span></div>
-<a href="#entry" class="btn-primary fade-in-up">今すぐ応募する</a>
+<div class="hero-cta-row fade-in-up">
+<a href="#entry" class="btn-primary">今すぐ応募する</a>
+<a href="/gallery.html" class="btn-secondary">🎬 作品ギャラリーを見る</a>
+</div>
 <div class="hero-thumbnail fade-in-up"><img src="http://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png" alt="白井市PR動画コンテスト サムネイル" class="hero-thumb-img" /></div>
 </div>
 </section><!-- ===== ② コンテストの背景・趣旨 ===== -->
@@ -28,20 +73,17 @@
 <div class="concept-card slide-up">
 <div class="concept-icon">🎬</div>
 <h3>AIで誰もが映像クリエイターに</h3>
-動画生成AIの進化により、誰でもプロ品質の映像が作れる時代。クリエイターの視点で「白井市に住みたい」と思える映像を届けてください。
-
+<p>動画生成AIの進化により、誰でもプロ品質の映像が作れる時代。クリエイターの視点で「白井市に住みたい」と思える映像を届けてください。</p>
 </div>
 <div class="concept-card slide-up">
 <div class="concept-icon">🏘️</div>
 <h3>地域PR × AI × クリエイター</h3>
-白井市 × Metagri研究所が連携し、優秀作品を白井市の公式PR動画として活用する地域プロモーション施策です。
-
+<p>白井市 × Metagri研究所が連携し、優秀作品を白井市の公式PR動画として活用する地域プロモーション施策です。</p>
 </div>
 <div class="concept-card slide-up">
 <div class="concept-icon">🌳</div>
 <h3>白井市の暮らしを、あなたの視点で</h3>
-梨畑が広がる里山、充実の子育て支援、都心まで約40分のアクセス。暮らしの魅力を映像で切り取り、まだ知らない人へ届けましょう。
-
+<p>梨畑が広がる里山、充実の子育て支援、都心まで約40分のアクセス。暮らしの魅力を映像で切り取り、まだ知らない人へ届けましょう。</p>
 </div>
 </div>
 </div>
@@ -93,10 +135,8 @@
 
 <div class="theme-material slide-up">
 <h3>🎨 素材ダウンロード</h3>
-白井市提供の写真・映像素材をご活用いただけます。素材ガイドブック付き。
-
-<a href="https://drive.google.com/drive/folders/1g60T6MHhqSMMXvs7UGWMzSGR5kirPhrS?usp=sharing" target="_blank" rel="noopener noreferrer" class="sc-btn sc-btn--primary">📂 素材をダウンロードする（Google Drive）</a>
-
+<p>白井市提供の写真・映像素材をご活用いただけます。素材ガイドブック付き。</p>
+<a href="https://drive.google.com/drive/folders/1g60T6MHhqSMMXvs7UGWMzSGR5kirPhrS?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-primary">📂 素材をダウンロードする（Google Drive）</a>
 </div>
 </div>
 </section><!-- ===== ⑤ 応募要項セクション ===== -->
@@ -125,27 +165,22 @@
 <div class="elig-card slide-up">
 <div class="elig-icon">👤</div>
 <h3>対象</h3>
-白井市の魅力発信に関心のあるすべての方
-<small>年齢・国籍・プロアマ不問</small>
-
+<p>白井市の魅力発信に関心のあるすべての方<br /><small>年齢・国籍・プロアマ不問</small></p>
 </div>
 <div class="elig-card slide-up">
 <div class="elig-icon">👨‍👩‍👧</div>
 <h3>18歳未満の方</h3>
-保護者の同意が必要です
-
+<p>保護者の同意が必要です</p>
 </div>
 <div class="elig-card slide-up">
 <div class="elig-icon">👥</div>
 <h3>チーム参加</h3>
-個人 or チーム（最大5名）で応募可
-
+<p>個人 or チーム（最大5名）で応募可</p>
 </div>
 <div class="elig-card slide-up">
 <div class="elig-icon">⚠️</div>
 <h3>制限事項</h3>
-主催関係者・運営関与者は応募不可
-
+<p>主催関係者・運営関与者は応募不可</p>
 </div>
 </div>
 </div>
@@ -193,8 +228,7 @@
 
 <time>2026年 夏以降</time>
 <h3>📺 受賞作品の公式PR活用開始</h3>
-市HP・公式SNS・市内施設・PRイベント・スポーツチームイベント等
-
+<p>市HP・公式SNS・市内施設・PRイベント・スポーツチームイベント等</p>
 </div>
 </div>
 </div>
@@ -205,25 +239,22 @@
 <div class="sc-container">
 <h2 class="sc-section__heading">応募までの3ステップ</h2>
 <div class="sc-steps__grid">
-<div class="sc-steps__card">
+<div class="sc-steps__card slide-up">
 <div class="sc-steps__number">1</div>
 <h3>映像を創る <span class="sc-steps__en">CREATE</span></h3>
-テーマに沿って、動画生成AIで30〜60秒のPR動画を制作。あなたの自由な発想を映像にのせてください。
+<p>テーマに沿って、動画生成AIで30〜60秒のPR動画を制作。あなたの自由な発想を映像にのせてください。</p>
 <p class="sc-steps__material">💡 白井市提供の写真・映像素材＆ガイドブックを活用できます</p>
 <a href="https://drive.google.com/drive/folders/1g60T6MHhqSMMXvs7UGWMzSGR5kirPhrS?usp=sharing" target="_blank" rel="noopener noreferrer" class="sc-btn sc-btn--secondary sc-btn--sm">📂 素材をダウンロード</a>
-
 </div>
-<div class="sc-steps__card">
+<div class="sc-steps__card slide-up">
 <div class="sc-steps__number">2</div>
 <h3>作品を提出する <span class="sc-steps__en">SUBMIT</span></h3>
-完成した動画をYouTube等にアップロード、またはファイルを用意し、応募フォームから必要事項を記入して送信。
-
+<p>完成した動画をYouTube等にアップロード、またはファイルを用意し、応募フォームから必要事項を記入して送信。</p>
 </div>
-<div class="sc-steps__card">
+<div class="sc-steps__card slide-up">
 <div class="sc-steps__number">3</div>
 <h3>結果を待つ <span class="sc-steps__en">JUDGE</span></h3>
-白井市とMetagri研究所による審査を実施。映像クオリティ・訴求力・独自性などの観点で選考されます。
-
+<p>白井市とMetagri研究所による審査を実施。映像クオリティ・訴求力・独自性などの観点で選考されます。</p>
 </div>
 </div>
 </div>
@@ -238,32 +269,20 @@
 <h3>審査基準</h3>
 <div class="judge-criteria">
 <div class="criteria-item">
-
 <span class="criteria-num">01</span>
-
-白井市の住環境・子育ての魅力が伝わるか
-
+<p>白井市の住環境・子育ての魅力が伝わるか</p>
 </div>
 <div class="criteria-item">
-
 <span class="criteria-num">02</span>
-
-映像としてのクオリティ
-
+<p>映像としてのクオリティ</p>
 </div>
 <div class="criteria-item">
-
 <span class="criteria-num">03</span>
-
-独自性・アイデア
-
+<p>独自性・アイデア</p>
 </div>
 <div class="criteria-item">
-
 <span class="criteria-num">04</span>
-
-「住みたい」と思わせる訴求力
-
+<p>「住みたい」と思わせる訴求力</p>
 </div>
 </div>
 </div>
@@ -276,21 +295,15 @@
 <div class="rights-grid">
 <div class="rights-item slide-up">
 <h3>📝 著作権</h3>
-応募者に帰属
-<small>（AI生成部分は使用ツールの利用規約に従う）</small>
-
+<p>応募者に帰属<br /><small>（AI生成部分は使用ツールの利用規約に従う）</small></p>
 </div>
 <div class="rights-item slide-up">
 <h3>📺 利用権</h3>
-白井市および主催者は、受賞作品をPR目的で自由に使用できる権利を持つ
-<small>（編集・トリミング等を含む幅広い使用が可能）</small>
-
+<p>白井市および主催者は、受賞作品をPR目的で自由に使用できる権利を持つ<br /><small>（編集・トリミング等を含む幅広い使用が可能）</small></p>
 </div>
 <div class="rights-item slide-up">
 <h3>©️ クレジット</h3>
-必須ではない
-<small>（サービスとして表記する場合あり）</small>
-
+<p>必須ではない<br /><small>（サービスとして表記する場合あり）</small></p>
 </div>
 </div>
 <div class="rights-cta slide-up"><a href="https://metagri-labo.com/metagri-shiroi-pr-video-contest-term/" target="_blank" rel="noopener" class="btn-secondary">📄 参加規約を確認する</a></div>
@@ -300,28 +313,52 @@
 <section id="faq" class="section">
 <div class="container">
 <h2 class="section-title slide-up">よくある質問</h2>
-<div class="faq-list"><details class="faq-item slide-up">
-<summary>白井市に住んでいなくても応募できますか？</summary>はい、どなたでも応募可能です。白井市の魅力発信に関心のある方であれば、お住まいの地域を問わずご参加いただけます。
+<div class="faq-list">
+<details class="faq-item slide-up">
+<summary>白井市に住んでいなくても応募できますか？</summary>
+<p>はい、どなたでも応募可能です。白井市の魅力発信に関心のある方であれば、お住まいの地域を問わずご参加いただけます。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>実写素材を使ってもいいですか？</summary>
+<p>はい、AI生成＋実写のミックスもOKです。動画生成AIの活用を推奨していますが、実写素材との組み合わせも自由です。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>白井市の素材はどこで手に入りますか？</summary>
+<p>コンテストLP内の素材ダウンロードセクションから、Google Drive経由で白井市提供の写真・映像素材を取得できます。素材ガイドブックも同梱されています。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>複数作品の応募はできますか？</summary>
+<p>はい、1人（または1チーム）につき最大3作品までご応募いただけます。ぜひ様々な切り口で挑戦してみてください。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>動画編集ソフトは必要ですか？</summary>
+<p>必須ではありません。AIが生成した動画をそのまま提出いただいてもOKです。編集ソフトを使えば、より表現の幅が広がります。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>受賞作品はどこで使われますか？</summary>
+<p>白井市の公式PR動画として、市HP・公式SNS・市内施設・PRイベント・スポーツチームイベント等で活用予定です。</p>
+</details>
+<details class="faq-item slide-up">
+<summary>チームで応募できますか？</summary>
+<p>はい、最大5名のチームでの参加が可能です。応募フォームにチーム名と代表者、メンバーの情報をご記入ください。</p>
+</details>
+</div>
+</div>
+</section><!-- ===== ⑪.5 作品ギャラリー誘導 ===== -->
 
-</details><details class="faq-item slide-up">
-<summary>実写素材を使ってもいいですか？</summary>はい、AI生成＋実写のミックスもOKです。動画生成AIの活用を推奨していますが、実写素材との組み合わせも自由です。
-
-</details><details class="faq-item slide-up">
-<summary>白井市の素材はどこで手に入りますか？</summary>コンテストLP内の素材ダウンロードセクションから、Google Drive経由で白井市提供の写真・映像素材を取得できます。素材ガイドブックも同梱されています。
-
-</details><details class="faq-item slide-up">
-<summary>複数作品の応募はできますか？</summary>はい、1人（または1チーム）につき最大3作品までご応募いただけます。ぜひ様々な切り口で挑戦してみてください。
-
-</details><details class="faq-item slide-up">
-<summary>動画編集ソフトは必要ですか？</summary>必須ではありません。AIが生成した動画をそのまま提出いただいてもOKです。編集ソフトを使えば、より表現の幅が広がります。
-
-</details><details class="faq-item slide-up">
-<summary>受賞作品はどこで使われますか？</summary>白井市の公式PR動画として、市HP・公式SNS・市内施設・PRイベント・スポーツチームイベント等で活用予定です。
-
-</details><details class="faq-item slide-up">
-<summary>チームで応募できますか？</summary>はい、最大5名のチームでの参加が可能です。応募フォームにチーム名と代表者、メンバーの情報をご記入ください。
-
-</details></div>
+<section id="gallery-cta" class="section">
+<div class="container">
+<div class="gallery-cta-box slide-up">
+<div class="gallery-cta-text">
+<p class="gallery-cta-eyebrow">GALLERY</p>
+<h2 class="gallery-cta-title">応募作品をギャラリーで公開中</h2>
+<p class="gallery-cta-desc">クリエイターたちが描く「白井で叶える、ゆとりある暮らし」。<br />これまでに集まった作品をぜひご覧ください。</p>
+<a href="/gallery.html" class="btn-primary">🎬 作品ギャラリーを見る</a>
+</div>
+<div class="gallery-cta-thumb" aria-hidden="true">
+<div class="gallery-cta-emoji">🎞️</div>
+</div>
+</div>
 </div>
 </section><!-- ===== ⑫ 主催・協力セクション ===== -->
 
@@ -346,18 +383,51 @@
 <section id="entry" class="section-cta">
 <div class="cta-petals" id="cta-petals"></div>
 <div class="container">
-<!-- Airtable フォーム埋め込み -->
-<div class="entry-form-wrap slide-up">
-  <iframe class="airtable-embed" src="https://airtable.com/embed/applcqOMmwyE9fjtX/pag5c6zh9kLCG9uKa/form" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+<h2 class="cta-title slide-up">あなたの映像で、<br class="sp-only" />白井市の未来をつくろう。</h2>
+<p class="cta-period slide-up">📝 応募受付：4月15日（水）〜 5月15日（金）</p>
+
+<!-- メインCTA：別タブで応募フォームを開く -->
+<div class="cta-actions slide-up">
+  <a href="https://airtable.com/applcqOMmwyE9fjtX/pag7VA1HFX42DJBoA/form"
+     target="_blank" rel="noopener noreferrer"
+     class="btn-primary btn-large">📝 応募フォームを開く</a>
+  <a href="/gallery.html" class="btn-secondary">🎬 過去の応募作品を見る</a>
 </div>
 
-<!-- フォーム直接リンク -->
-<p class="entry-link slide-up">
-  🔗 <a href="https://airtable.com/applcqOMmwyE9fjtX/pag5c6zh9kLCG9uKa/form" target="_blank" rel="noopener">
-    応募フォームをブラウザで開く
-  </a>
-</p>
+<p class="entry-note slide-up">※ ボタンをクリックすると Airtable の応募フォームが新しいタブで開きます。</p>
+
+<!-- Airtable フォーム埋め込み（フォールバック） -->
+<details class="entry-embed slide-up">
+  <summary>このページ内でフォームを表示する</summary>
+  <div class="entry-form-wrap">
+    <iframe
+      class="airtable-embed"
+      src="https://airtable.com/embed/applcqOMmwyE9fjtX/pag7VA1HFX42DJBoA/form?backgroundColor=transparent"
+      frameborder="0"
+      width="100%"
+      height="900"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="白井市PR動画コンテスト 応募フォーム">
+    </iframe>
+  </div>
+  <p class="entry-link">
+    🔗 埋め込みが表示されない場合は
+    <a href="https://airtable.com/applcqOMmwyE9fjtX/pag7VA1HFX42DJBoA/form" target="_blank" rel="noopener noreferrer">
+      こちらから直接フォームを開いてください
+    </a>。
+  </p>
+</details>
 
 </div>
 </section>
-<footer class="footer"><a href="https://metagri-labo.com/metagri-shiroi-pr-video-contest-term/" target="_blank" rel="noopener" class="footer-link">参加規約</a>© 2026 Metagri研究所 presents 白井市PR動画コンテスト</footer><script src="script.js"></script>
+<footer class="footer">
+<a href="https://metagri-labo.com/metagri-shiroi-pr-video-contest-term/" target="_blank" rel="noopener" class="footer-link">参加規約</a>
+<span>© 2026 Metagri研究所 presents 白井市PR動画コンテスト</span>
+</footer>
+
+</div><!-- /#shiroi-contest-lp -->
+
+<script src="SHIROI.js"></script>
+</body>
+</html>

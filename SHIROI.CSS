@@ -653,6 +653,196 @@ small { font-size: 0.85em; color: var(--text-light); }
   color: rgba(255,255,255,0.9);
   text-decoration: underline;
   font-weight: 500;
+  margin-right: 16px;
+}
+
+/* --- Entry CTA フォーム周り --- */
+.entry-form-wrap {
+  max-width: 760px;
+  margin: 0 auto 24px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+}
+.entry-form-wrap .airtable-embed {
+  display: block;
+  width: 100%;
+  border: none !important;
+  border-radius: var(--radius);
+}
+.entry-link {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.entry-link a {
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.entry-link a:hover { color: var(--sakura-dark); }
+
+/* タイムラインの縦線 & ドットの位置調整補助 */
+.timeline::before {
+  background: linear-gradient(180deg, var(--sakura) 0%, var(--green) 100%);
+  width: 3px;
+  height: 100%;
+  left: 8px;
+  top: 0;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+.tl-dot {
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.tl-content time {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sakura-dark);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+.tl-content h3 {
+  font-size: 1.1rem;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.tl-content p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* --- フッター 2段組 --- */
+.footer { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.footer-link { margin-right: 0; }
+
+/* --- ヒーロー：2ボタン横並び --- */
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* --- 応募CTAセクション内 アクション群 --- */
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin: 8px 0 16px;
+}
+.btn-large {
+  padding: 20px 56px !important;
+  font-size: 1.1rem !important;
+}
+.entry-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+
+/* 折りたたみフォーム埋め込み */
+.entry-embed {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+  overflow: hidden;
+}
+.entry-embed > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 24px;
+  font-weight: 700;
+  color: var(--brown);
+  background: var(--bg-alt);
+  text-align: center;
+  font-size: 0.95rem;
+}
+.entry-embed > summary::-webkit-details-marker { display: none; }
+.entry-embed > summary::after {
+  content: ' ▾';
+  color: var(--sakura-dark);
+}
+.entry-embed[open] > summary::after { content: ' ▴'; }
+.entry-embed .entry-form-wrap {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: 12px;
+}
+.entry-embed .entry-link {
+  padding: 0 16px 16px;
+  font-size: 0.85rem;
+}
+
+/* --- ヘッダーナビ：sticky 時の背景補正 --- */
+#shiroi-contest-lp .gl-header { background: rgba(255, 250, 245, 0.92); }
+
+/* --- ⑪.5 作品ギャラリー誘導 --- */
+.gallery-cta-box {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  align-items: center;
+  background: linear-gradient(135deg, var(--green-light) 0%, var(--sakura-light) 100%);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  box-shadow: var(--shadow);
+}
+.gallery-cta-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+}
+.gallery-cta-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(1.4rem, 3.6vw, 2rem);
+  font-weight: 900;
+  color: var(--brown);
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+.gallery-cta-desc {
+  font-size: 0.98rem;
+  color: var(--text);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+.gallery-cta-thumb {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+}
+.gallery-cta-emoji { font-size: 5.5rem; }
+@media (max-width: 767px) {
+  .gallery-cta-box {
+    grid-template-columns: 1fr;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  .gallery-cta-thumb { max-width: 200px; margin: 0 auto; }
 }
 
 /* ============================================
