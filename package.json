@@ -1,0 +1,14 @@
+{
+  "name": "shiroi-pr-video-contest-lp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "白井市PR動画コンテスト LP + 作品ギャラリー",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@vercel/kv": "^3.0.0"
+  }
+}
