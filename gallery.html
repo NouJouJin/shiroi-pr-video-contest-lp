@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>作品ギャラリー | 白井市PR動画コンテスト</title>
+<meta name="description" content="白井市PR動画コンテストの応募作品一覧。クリエイターの想いとともに、白井市の魅力を映像でお楽しみください。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/SHIROI.CSS" />
+<link rel="stylesheet" href="/css/gallery.css" />
+</head>
+<body>
+
+<!-- ===== ヘッダーナビ ===== -->
+<header class="gl-header">
+  <div class="gl-header__inner">
+    <a href="/SHIROI.html" class="gl-header__logo">白井市PR動画コンテスト</a>
+    <nav class="gl-nav">
+      <a href="/SHIROI.html" class="gl-nav__link">コンテストTOP</a>
+      <a href="/gallery.html" class="gl-nav__link is-current" aria-current="page">作品ギャラリー</a>
+      <a href="#" class="gl-nav__link is-disabled" aria-disabled="true" title="準備中">受賞作品（Coming Soon）</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== ヒーロー（ミニ） ===== -->
+<section class="gl-hero">
+  <div class="container">
+    <p class="gl-hero__eyebrow">GALLERY</p>
+    <h1 class="gl-hero__title">応募作品ギャラリー</h1>
+    <p class="gl-hero__lead">クリエイターたちが描く、白井市の暮らし。<br />気になる作品をクリックして、想いと映像をお楽しみください。</p>
+  </div>
+</section>
+
+<!-- ===== 作品グリッド ===== -->
+<main class="gl-main">
+  <div class="container">
+    <div class="gl-meta" id="gl-meta" aria-live="polite">読み込み中…</div>
+    <div class="gl-grid" id="gl-grid"></div>
+    <div class="gl-empty" id="gl-empty" hidden>
+      <p>まだ作品が登録されていません。</p>
+    </div>
+  </div>
+</main>
+
+<!-- ===== モーダル ===== -->
+<div class="gl-modal" id="gl-modal" role="dialog" aria-modal="true" aria-labelledby="gl-modal-title" hidden>
+  <div class="gl-modal__backdrop" data-close></div>
+  <div class="gl-modal__panel" role="document">
+    <button class="gl-modal__close" type="button" data-close aria-label="閉じる">×</button>
+    <div class="gl-modal__player">
+      <iframe id="gl-modal-iframe" src="" title="YouTube動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="gl-modal__body">
+      <h2 class="gl-modal__title" id="gl-modal-title"></h2>
+      <p class="gl-modal__creator" id="gl-modal-creator"></p>
+      <div class="gl-modal__message-wrap">
+        <h3 class="gl-modal__heading">クリエイターの想い</h3>
+        <p class="gl-modal__message" id="gl-modal-message"></p>
+      </div>
+      <div class="gl-modal__actions">
+        <button class="gl-like" id="gl-modal-like" type="button">
+          <span class="gl-like__icon" aria-hidden="true">♥</span>
+          <span class="gl-like__count" id="gl-modal-like-count">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== フッター ===== -->
+<footer class="gl-footer">
+  <p>© 2026 Metagri研究所 presents 白井市PR動画コンテスト</p>
+  <p><a href="/SHIROI.html">コンテスト概要に戻る</a></p>
+</footer>
+
+<script src="/js/gallery.js"></script>
+</body>
+</html>
