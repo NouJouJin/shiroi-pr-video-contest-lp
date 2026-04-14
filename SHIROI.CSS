@@ -653,7 +653,77 @@ small { font-size: 0.85em; color: var(--text-light); }
   color: rgba(255,255,255,0.9);
   text-decoration: underline;
   font-weight: 500;
+  margin-right: 16px;
 }
+
+/* --- Entry CTA フォーム周り --- */
+.entry-form-wrap {
+  max-width: 760px;
+  margin: 0 auto 24px;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+}
+.entry-form-wrap .airtable-embed {
+  display: block;
+  width: 100%;
+  border: none !important;
+  border-radius: var(--radius);
+}
+.entry-link {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.entry-link a {
+  color: var(--green-dark);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.entry-link a:hover { color: var(--sakura-dark); }
+
+/* タイムラインの縦線 & ドットの位置調整補助 */
+.timeline::before {
+  background: linear-gradient(180deg, var(--sakura) 0%, var(--green) 100%);
+  width: 3px;
+  height: 100%;
+  left: 8px;
+  top: 0;
+}
+.tl-item {
+  position: relative;
+  margin-bottom: 32px;
+}
+.tl-dot {
+  position: absolute;
+  left: -32px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.tl-content time {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sakura-dark);
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+.tl-content h3 {
+  font-size: 1.1rem;
+  color: var(--brown);
+  margin-bottom: 6px;
+}
+.tl-content p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* --- フッター 2段組 --- */
+.footer { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.footer-link { margin-right: 0; }
 
 /* ============================================
    アニメーション初期状態（GSAP で制御）
