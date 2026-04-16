@@ -60,6 +60,36 @@
         <h3 class="gl-modal__heading">クリエイターの想い</h3>
         <p class="gl-modal__message" id="gl-modal-message"></p>
       </div>
+
+      <details class="gl-modal__details" id="gl-modal-details">
+        <summary class="gl-modal__details-summary">
+          <span class="gl-modal__details-label">制作の詳細を見る</span>
+          <span class="gl-modal__details-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="gl-modal__details-body">
+          <section class="gl-modal__detail-item" id="gl-modal-full-message-wrap" hidden>
+            <h4 class="gl-modal__detail-heading">作品コンセプト</h4>
+            <p class="gl-modal__detail-text" id="gl-modal-full-message"></p>
+          </section>
+          <section class="gl-modal__detail-item" id="gl-modal-process-wrap" hidden>
+            <h4 class="gl-modal__detail-heading">制作プロセスの工夫</h4>
+            <p class="gl-modal__detail-text" id="gl-modal-process"></p>
+          </section>
+          <section class="gl-modal__detail-item" id="gl-modal-ai-wrap" hidden>
+            <h4 class="gl-modal__detail-heading">使用した生成AI</h4>
+            <ul class="gl-modal__detail-list" id="gl-modal-ai-tools"></ul>
+          </section>
+          <section class="gl-modal__detail-item" id="gl-modal-music-wrap" hidden>
+            <h4 class="gl-modal__detail-heading">音源提供</h4>
+            <p class="gl-modal__detail-text" id="gl-modal-music"></p>
+          </section>
+          <section class="gl-modal__detail-item gl-modal__detail-item--comment" id="gl-modal-comment-wrap" hidden>
+            <h4 class="gl-modal__detail-heading">クリエイターからのコメント</h4>
+            <p class="gl-modal__detail-text" id="gl-modal-comment"></p>
+          </section>
+        </div>
+      </details>
+
       <div class="gl-modal__actions">
         <button class="gl-like" id="gl-modal-like" type="button">
           <span class="gl-like__icon" aria-hidden="true">♥</span>

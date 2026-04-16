@@ -313,6 +313,144 @@
   justify-content: center;
 }
 
+/* --- モーダル：詳細セクション（折りたたみ） --- */
+.gl-modal__details {
+  margin: 0 0 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+}
+.gl-modal__details[hidden] { display: none; }
+.gl-modal__details-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--sakura-dark);
+  background: linear-gradient(180deg, rgba(253, 232, 239, 0.4) 0%, rgba(253, 232, 239, 0.1) 100%);
+  transition: background var(--transition);
+  user-select: none;
+}
+.gl-modal__details-summary::-webkit-details-marker { display: none; }
+.gl-modal__details-summary:hover {
+  background: rgba(253, 232, 239, 0.7);
+}
+.gl-modal__details-summary:focus-visible {
+  outline: 3px solid var(--sakura-dark);
+  outline-offset: -3px;
+}
+.gl-modal__details-label::before {
+  content: '📝 ';
+  margin-right: 4px;
+}
+.gl-modal__details-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid var(--sakura-dark);
+  transition: transform 0.25s ease;
+}
+.gl-modal__details[open] .gl-modal__details-icon {
+  transform: rotate(180deg);
+}
+.gl-modal__details[open] .gl-modal__details-summary {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.gl-modal__details-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: detailsSlide 0.3s ease;
+}
+.gl-modal__detail-item[hidden] { display: none; }
+.gl-modal__detail-heading {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  padding-left: 10px;
+  border-left: 3px solid var(--green);
+}
+.gl-modal__detail-text {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.85;
+  white-space: pre-wrap;
+}
+.gl-modal__detail-text a {
+  color: var(--green-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.gl-modal__detail-text a:hover {
+  color: var(--sakura-dark);
+}
+.gl-modal__detail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.gl-modal__detail-list li {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.6;
+  padding: 8px 14px;
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--sakura);
+}
+.gl-modal__detail-list li strong {
+  color: var(--brown);
+  margin-right: 4px;
+}
+.gl-modal__detail-role {
+  color: var(--text-light);
+  font-size: 0.88rem;
+}
+
+/* クリエイターコメント（ふきだし風） */
+.gl-modal__detail-item--comment .gl-modal__detail-heading {
+  border-left-color: var(--sakura);
+  color: var(--sakura-dark);
+}
+.gl-modal__detail-item--comment .gl-modal__detail-text {
+  background: linear-gradient(135deg, #fff 0%, #fde8ef 100%);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  position: relative;
+  font-style: italic;
+  color: var(--text);
+  border: 1px dashed var(--sakura);
+}
+.gl-modal__detail-item--comment .gl-modal__detail-text::before {
+  content: '"';
+  position: absolute;
+  top: -8px;
+  left: 10px;
+  font-size: 2.2rem;
+  color: var(--sakura);
+  font-family: 'Zen Maru Gothic', serif;
+  line-height: 1;
+}
+
+@keyframes detailsSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- いいねボタン --- */
 .gl-like {
   display: inline-flex;

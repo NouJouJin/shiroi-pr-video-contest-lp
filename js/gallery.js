@@ -22,6 +22,17 @@
   const $modalMessage = document.getElementById('gl-modal-message');
   const $modalLike = document.getElementById('gl-modal-like');
   const $modalLikeCount = document.getElementById('gl-modal-like-count');
+  const $modalDetails = document.getElementById('gl-modal-details');
+  const $modalFullMsgWrap = document.getElementById('gl-modal-full-message-wrap');
+  const $modalFullMsg = document.getElementById('gl-modal-full-message');
+  const $modalAiWrap = document.getElementById('gl-modal-ai-wrap');
+  const $modalAiList = document.getElementById('gl-modal-ai-tools');
+  const $modalMusicWrap = document.getElementById('gl-modal-music-wrap');
+  const $modalMusic = document.getElementById('gl-modal-music');
+  const $modalProcessWrap = document.getElementById('gl-modal-process-wrap');
+  const $modalProcess = document.getElementById('gl-modal-process');
+  const $modalCommentWrap = document.getElementById('gl-modal-comment-wrap');
+  const $modalComment = document.getElementById('gl-modal-comment');
 
   let entries = [];
   let likeCounts = {}; // { id: count }
@@ -158,6 +169,73 @@
     $modalCreator.textContent = entry.creator;
     $modalMessage.textContent = entry.message || '';
     $modalIframe.src = ytEmbed(entry.youtubeId);
+
+    // ----- 詳細セクション -----
+    if ($modalDetails) $modalDetails.open = false;
+
+    // 作品コンセプト（全文）
+    if (entry.fullMessage && $modalFullMsgWrap && $modalFullMsg) {
+      $modalFullMsg.textContent = entry.fullMessage;
+      $modalFullMsgWrap.hidden = false;
+    } else if ($modalFullMsgWrap) {
+      $modalFullMsgWrap.hidden = true;
+    }
+
+    // 制作プロセスの工夫
+    if (entry.productionProcess && $modalProcessWrap && $modalProcess) {
+      $modalProcess.textContent = entry.productionProcess;
+      $modalProcessWrap.hidden = false;
+    } else if ($modalProcessWrap) {
+      $modalProcessWrap.hidden = true;
+    }
+
+    // 使用した生成AI
+    if (Array.isArray(entry.aiTools) && entry.aiTools.length && $modalAiWrap && $modalAiList) {
+      $modalAiList.innerHTML = entry.aiTools
+        .map((t) => {
+          const name = typeof t === 'string' ? t : (t && t.name) || '';
+          const role = typeof t === 'string' ? '' : (t && t.role) || '';
+          if (!name) return '';
+          return `<li><strong>${escapeHtml(name)}</strong>${role ? ` <span class="gl-modal__detail-role">— ${escapeHtml(role)}</span>` : ''}</li>`;
+        })
+        .join('');
+      $modalAiWrap.hidden = false;
+    } else if ($modalAiWrap) {
+      $modalAiWrap.hidden = true;
+    }
+
+    // 音源提供
+    if (entry.musicSource && $modalMusicWrap && $modalMusic) {
+      const src = entry.musicSource;
+      if (typeof src === 'string') {
+        $modalMusic.textContent = src;
+      } else if (src.url) {
+        $modalMusic.innerHTML = `<a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(src.name || src.url)}</a>`;
+      } else {
+        $modalMusic.textContent = src.name || '';
+      }
+      $modalMusicWrap.hidden = false;
+    } else if ($modalMusicWrap) {
+      $modalMusicWrap.hidden = true;
+    }
+
+    // クリエイターからのコメント
+    if (entry.creatorComment && $modalCommentWrap && $modalComment) {
+      $modalComment.textContent = entry.creatorComment;
+      $modalCommentWrap.hidden = false;
+    } else if ($modalCommentWrap) {
+      $modalCommentWrap.hidden = true;
+    }
+
+    // 詳細セクション自体の表示/非表示（全項目なければ隠す）
+    if ($modalDetails) {
+      const hasDetails = Boolean(entry.fullMessage) ||
+        Boolean(entry.productionProcess) ||
+        (Array.isArray(entry.aiTools) && entry.aiTools.length) ||
+        Boolean(entry.musicSource) ||
+        Boolean(entry.creatorComment);
+      $modalDetails.hidden = !hasDetails;
+    }
 
     const count = likeCounts[entry.id] || 0;
     $modalLikeCount.textContent = String(count);
