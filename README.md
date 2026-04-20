@@ -133,7 +133,7 @@ vercel dev
 | URL | 内容 |
 |---|---|
 | `http://localhost:3000/` | コンテストLP（`SHIROI.html`） |
-| `http://localhost:3000/gallery.html` | 作品ギャラリー |
+| `http://localhost:3000/gallery` | 作品ギャラリー |
 | `http://localhost:3000/api/like` (GET) | いいね数一覧（JSON） |
 | `http://localhost:3000/api/like` (POST) | いいね追加（JSON） |
 
