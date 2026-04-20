@@ -5,21 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>作品ギャラリー | 白井市PR動画コンテスト</title>
 <meta name="description" content="白井市PR動画コンテストの応募作品一覧。クリエイターの想いとともに、白井市の魅力を映像でお楽しみください。" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#fffaf5" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="白井市PR動画コンテスト" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:title" content="作品ギャラリー | 白井市PR動画コンテスト" />
+<meta property="og:description" content="白井市PR動画コンテストの応募作品一覧。クリエイターの想いとともに、白井市の魅力を映像でお楽しみください。" />
+<meta property="og:image" content="https://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png" />
+<meta property="og:image:alt" content="白井市PR動画コンテストのキービジュアル" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="作品ギャラリー | 白井市PR動画コンテスト" />
+<meta name="twitter:description" content="白井市PR動画コンテストの応募作品一覧。クリエイターの想いとともに、白井市の魅力を映像でお楽しみください。" />
+<meta name="twitter:image" content="https://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png" />
+<meta name="twitter:image:alt" content="白井市PR動画コンテストのキービジュアル" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/SHIROI.CSS" />
 <link rel="stylesheet" href="/css/gallery.css" />
+<script src="/js/site-meta.js" defer></script>
 </head>
-<body>
+<body data-page="gallery">
 
 <!-- ===== ヘッダーナビ ===== -->
 <header class="gl-header">
   <div class="gl-header__inner">
-    <a href="/SHIROI.html" class="gl-header__logo">白井市PR動画コンテスト</a>
+    <a href="/" class="gl-header__logo">白井市PR動画コンテスト</a>
     <nav class="gl-nav">
-      <a href="/SHIROI.html" class="gl-nav__link">コンテストTOP</a>
-      <a href="/gallery.html" class="gl-nav__link is-current" aria-current="page">作品ギャラリー</a>
+      <a href="/" class="gl-nav__link">コンテストTOP</a>
+      <a href="/gallery" class="gl-nav__link is-current" aria-current="page">作品ギャラリー</a>
       <a href="#" class="gl-nav__link is-disabled" aria-disabled="true" title="準備中">受賞作品（Coming Soon）</a>
     </nav>
   </div>
@@ -49,13 +64,20 @@
 <div class="gl-modal" id="gl-modal" role="dialog" aria-modal="true" aria-labelledby="gl-modal-title" hidden>
   <div class="gl-modal__backdrop" data-close></div>
   <div class="gl-modal__panel" role="document">
-    <button class="gl-modal__close" type="button" data-close aria-label="閉じる">×</button>
+    <div class="gl-modal__topbar">
+      <button class="gl-modal__back" type="button" data-close>← 一覧へ戻る</button>
+      <button class="gl-modal__close" type="button" data-close aria-label="閉じる">×</button>
+    </div>
     <div class="gl-modal__player">
       <iframe id="gl-modal-iframe" src="" title="YouTube動画" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
     </div>
     <div class="gl-modal__body">
       <h2 class="gl-modal__title" id="gl-modal-title"></h2>
       <p class="gl-modal__creator" id="gl-modal-creator"></p>
+      <div class="gl-modal__pager">
+        <button class="gl-modal__pager-btn" id="gl-modal-prev" type="button">← 前の作品</button>
+        <button class="gl-modal__pager-btn" id="gl-modal-next" type="button">次の作品 →</button>
+      </div>
       <div class="gl-modal__message-wrap">
         <h3 class="gl-modal__heading">クリエイターの想い</h3>
         <p class="gl-modal__message" id="gl-modal-message"></p>
@@ -106,6 +128,6 @@
   <p><a href="https://metagri-labo.com/metagri-shiroi-pr-video-contest/">コンテスト概要に戻る</a></p>
 </footer>
 
-<script src="/js/gallery.js"></script>
+<script src="/js/gallery.js" defer></script>
 </body>
 </html>

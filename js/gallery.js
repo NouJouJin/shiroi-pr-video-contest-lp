@@ -25,6 +25,8 @@
   const $modalDetails = document.getElementById('gl-modal-details');
   const $modalFullMsgWrap = document.getElementById('gl-modal-full-message-wrap');
   const $modalFullMsg = document.getElementById('gl-modal-full-message');
+  const $modalPrev = document.getElementById('gl-modal-prev');
+  const $modalNext = document.getElementById('gl-modal-next');
   const $modalAiWrap = document.getElementById('gl-modal-ai-wrap');
   const $modalAiList = document.getElementById('gl-modal-ai-tools');
   const $modalMusicWrap = document.getElementById('gl-modal-music-wrap');
@@ -37,6 +39,7 @@
   let entries = [];
   let likeCounts = {}; // { id: count }
   let currentEntry = null;
+  let currentEntryIndex = -1;
   let lastFocusedEl = null;
 
   // ----- ユーティリティ -----
@@ -63,6 +66,13 @@
 
   function ytEmbed(id) {
     return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0&modestbranding=1&autoplay=1`;
+  }
+
+  function truncateText(str, maxLength = 68) {
+    if (!str) return '作品に込めた想いは、モーダルから詳しくご覧いただけます。';
+    const normalized = String(str).replace(/\s+/g, ' ').trim();
+    if (normalized.length <= maxLength) return normalized;
+    return `${normalized.slice(0, maxLength).trimEnd()}…`;
   }
 
   function isLiked(id) {
@@ -119,6 +129,25 @@
     return typeof data.count === 'number' ? data.count : null;
   }
 
+  function renderSkeletons(count = 6) {
+    $empty.hidden = true;
+    $meta.textContent = '作品を読み込み中…';
+    $grid.innerHTML = Array.from({ length: count }, () => `
+      <article class="gl-card gl-card--skeleton" aria-hidden="true">
+        <div class="gl-card__thumb"></div>
+        <div class="gl-card__body">
+          <div class="gl-skeleton gl-skeleton--title"></div>
+          <div class="gl-skeleton gl-skeleton--text"></div>
+          <div class="gl-skeleton gl-skeleton--text gl-skeleton--short"></div>
+          <div class="gl-card__footer">
+            <div class="gl-skeleton gl-skeleton--meta"></div>
+            <div class="gl-skeleton gl-skeleton--meta gl-skeleton--tiny"></div>
+          </div>
+        </div>
+      </article>
+    `).join('');
+  }
+
   // ----- 描画 -----
   function renderGrid() {
     if (!entries.length) {
@@ -133,6 +162,7 @@
     const html = entries
       .map((e) => {
         const count = likeCounts[e.id] || 0;
+        const excerpt = truncateText(e.message);
         return `
           <article class="gl-card" data-id="${escapeHtml(e.id)}" tabindex="0" role="button" aria-label="${escapeHtml(e.title)} を再生">
             <div class="gl-card__thumb">
@@ -142,6 +172,7 @@
             <div class="gl-card__body">
               <h2 class="gl-card__title">${escapeHtml(e.title)}</h2>
               <p class="gl-card__creator">by ${escapeHtml(e.creator)}</p>
+              <p class="gl-card__excerpt">${escapeHtml(excerpt)}</p>
               <div class="gl-card__footer">
                 <span class="gl-card__likes" data-like-count="${escapeHtml(e.id)}">♥ ${count}</span>
                 <span class="gl-card__date">${escapeHtml(formatDate(e.submittedAt))}</span>
@@ -160,9 +191,23 @@
     if (el) el.textContent = `♥ ${count}`;
   }
 
+  function updateModalPager() {
+    if (!$modalPrev || !$modalNext) return;
+    const hasPrev = currentEntryIndex > 0;
+    const hasNext = currentEntryIndex >= 0 && currentEntryIndex < entries.length - 1;
+    $modalPrev.disabled = !hasPrev;
+    $modalNext.disabled = !hasNext;
+  }
+
+  function openEntryByIndex(index) {
+    if (index < 0 || index >= entries.length) return;
+    openModal(entries[index]);
+  }
+
   // ----- モーダル -----
   function openModal(entry) {
     currentEntry = entry;
+    currentEntryIndex = entries.findIndex((item) => item.id === entry.id);
     lastFocusedEl = document.activeElement;
 
     $modalTitle.textContent = entry.title;
@@ -241,10 +286,17 @@
     $modalLikeCount.textContent = String(count);
     $modalLike.disabled = isLiked(entry.id);
     $modalLike.classList.remove('is-loading', 'is-pulse');
+    updateModalPager();
 
     $modal.hidden = false;
     document.body.style.overflow = 'hidden';
-    setTimeout(() => $modalLike.focus(), 50);
+    setTimeout(() => {
+      if ($modalPrev && !$modalPrev.disabled) {
+        $modalPrev.focus();
+        return;
+      }
+      $modalLike.focus();
+    }, 50);
   }
 
   function closeModal() {
@@ -253,6 +305,7 @@
     $modalIframe.src = ''; // 動画停止
     document.body.style.overflow = '';
     currentEntry = null;
+    currentEntryIndex = -1;
     if (lastFocusedEl && typeof lastFocusedEl.focus === 'function') {
       lastFocusedEl.focus();
     }
@@ -290,6 +343,16 @@
     }
   }
 
+  function handlePrevClick() {
+    if (currentEntryIndex <= 0) return;
+    openEntryByIndex(currentEntryIndex - 1);
+  }
+
+  function handleNextClick() {
+    if (currentEntryIndex >= entries.length - 1) return;
+    openEntryByIndex(currentEntryIndex + 1);
+  }
+
   // ----- イベント -----
   function bindEvents() {
     // カードクリック / Enter
@@ -315,16 +378,22 @@
       if (e.target.matches('[data-close]')) closeModal();
     });
     document.addEventListener('keydown', (e) => {
+      if ($modal.hidden) return;
       if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') handlePrevClick();
+      if (e.key === 'ArrowRight') handleNextClick();
     });
 
     // いいね
     $modalLike.addEventListener('click', handleLikeClick);
+    if ($modalPrev) $modalPrev.addEventListener('click', handlePrevClick);
+    if ($modalNext) $modalNext.addEventListener('click', handleNextClick);
   }
 
   // ----- 初期化 -----
   async function init() {
     bindEvents();
+    renderSkeletons(6);
     try {
       const [list, counts] = await Promise.all([loadEntries(), loadLikeCounts()]);
       entries = list;
