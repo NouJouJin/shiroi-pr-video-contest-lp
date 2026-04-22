@@ -252,7 +252,18 @@
     // 音源提供
     if (entry.musicSource && $modalMusicWrap && $modalMusic) {
       const src = entry.musicSource;
-      if (typeof src === 'string') {
+      if (Array.isArray(src)) {
+        $modalMusic.innerHTML = src
+          .map((item) => {
+            if (typeof item === 'string') return escapeHtml(item);
+            if (item && item.url) {
+              return `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.name || item.url)}</a>`;
+            }
+            return escapeHtml((item && item.name) || '');
+          })
+          .filter(Boolean)
+          .join('<br />');
+      } else if (typeof src === 'string') {
         $modalMusic.textContent = src;
       } else if (src.url) {
         $modalMusic.innerHTML = `<a href="${escapeHtml(src.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(src.name || src.url)}</a>`;
