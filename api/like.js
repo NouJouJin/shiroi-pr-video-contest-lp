@@ -6,9 +6,25 @@
    ============================================ */
 
 import { kv } from '@vercel/kv';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const KEY_PREFIX = 'shiroi:like:';
 const ALL_IDS_KEY = 'shiroi:like:ids'; // SET型: 既知のIDを記録
+
+let cachedEntryIds = null;
+
+function getEntryIds() {
+  if (cachedEntryIds) return cachedEntryIds;
+
+  const entriesPath = path.join(process.cwd(), 'data', 'entries.json');
+  const data = JSON.parse(fs.readFileSync(entriesPath, 'utf8'));
+  const entries = Array.isArray(data.entries) ? data.entries : [];
+  cachedEntryIds = entries
+    .map((entry) => String(entry.id || '').trim())
+    .filter(Boolean);
+  return cachedEntryIds;
+}
 
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,7 +41,9 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === 'GET') {
-      const ids = (await kv.smembers(ALL_IDS_KEY)) || [];
+      const entryIds = getEntryIds();
+      const storedIds = (await kv.smembers(ALL_IDS_KEY)) || [];
+      const ids = entryIds.filter((id) => storedIds.includes(id));
       if (!ids.length) {
         return res.status(200).json({ counts: {} });
       }
@@ -44,6 +62,9 @@ export default async function handler(req, res) {
 
       if (!id || !/^[A-Za-z0-9_-]{1,64}$/.test(id)) {
         return res.status(400).json({ error: 'invalid id' });
+      }
+      if (!getEntryIds().includes(id)) {
+        return res.status(404).json({ error: 'entry not found' });
       }
 
       const newCount = await kv.incr(KEY_PREFIX + id);

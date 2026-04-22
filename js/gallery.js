@@ -340,15 +340,7 @@
       $modalLike.disabled = true;
       $modalLike.classList.add('is-pulse');
     } catch (err) {
-      // APIエラー時はクライアント側のみ反映（ベストエフォート）
       console.warn('like API error:', err);
-      const fallback = (likeCounts[id] || 0) + 1;
-      likeCounts[id] = fallback;
-      $modalLikeCount.textContent = String(fallback);
-      updateCardLike(id, fallback);
-      markLiked(id);
-      $modalLike.disabled = true;
-      $modalLike.classList.add('is-pulse');
     } finally {
       $modalLike.classList.remove('is-loading');
     }
