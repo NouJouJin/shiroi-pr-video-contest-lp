@@ -5,7 +5,8 @@
   "description": "白井市PR動画コンテスト LP + 作品ギャラリー",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/local-server.mjs",
+    "preview": "node scripts/local-server.mjs",
     "deploy": "vercel --prod"
   },
   "dependencies": {
