@@ -22,6 +22,7 @@ const types = {
 function routePath(pathname) {
   if (pathname === '/' || pathname === '/SHIROI') return '/SHIROI.html';
   if (pathname === '/gallery') return '/gallery.html';
+  if (pathname === '/vote-terms') return '/vote-terms.html';
   return pathname;
 }
 

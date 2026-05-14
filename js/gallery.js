@@ -60,6 +60,15 @@
     return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
   }
 
+  function entryNumber(id) {
+    const num = Number.parseInt(id, 10);
+    return Number.isFinite(num) ? num : id;
+  }
+
+  function formatEntryNo(id) {
+    return `No.${entryNumber(id)}`;
+  }
+
   function ytThumb(id) {
     return `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
   }
@@ -91,17 +100,31 @@
     }
   }
 
+  function trackGalleryEvent(eventName, entry, params = {}) {
+    if (!entry || typeof window.gtag !== 'function') return;
+    window.gtag('event', eventName, {
+      event_category: 'gallery',
+      entry_id: String(entry.id || ''),
+      entry_no: String(entryNumber(entry.id)),
+      entry_title: entry.title || '',
+      creator: entry.creator || '',
+      youtube_id: entry.youtubeId || '',
+      ...params,
+    });
+  }
+
   // ----- データ取得 -----
   async function loadEntries() {
     const res = await fetch(ENTRIES_URL, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`entries fetch failed: ${res.status}`);
     const data = await res.json();
     const list = Array.isArray(data.entries) ? data.entries : [];
-    // 新着順（submittedAt降順）
+    // エントリーNo順（id昇順）
     list.sort((a, b) => {
-      const da = new Date(a.submittedAt || 0).getTime();
-      const db = new Date(b.submittedAt || 0).getTime();
-      return db - da;
+      const na = Number.parseInt(a.id, 10);
+      const nb = Number.parseInt(b.id, 10);
+      if (Number.isFinite(na) && Number.isFinite(nb)) return na - nb;
+      return String(a.id || '').localeCompare(String(b.id || ''), 'ja');
     });
     return list;
   }
@@ -157,16 +180,18 @@
       return;
     }
     $empty.hidden = true;
-    $meta.textContent = `全 ${entries.length} 作品（新着順）`;
+    $meta.textContent = `全 ${entries.length} 作品（エントリーNo順）`;
 
     const html = entries
       .map((e) => {
         const count = likeCounts[e.id] || 0;
         const excerpt = truncateText(e.message);
+        const entryNo = formatEntryNo(e.id);
         return `
-          <article class="gl-card" data-id="${escapeHtml(e.id)}" tabindex="0" role="button" aria-label="${escapeHtml(e.title)} を再生">
+          <article class="gl-card" data-id="${escapeHtml(e.id)}" tabindex="0" role="button" aria-label="${escapeHtml(entryNo)} ${escapeHtml(e.title)} を再生">
             <div class="gl-card__thumb">
               <img src="${ytThumb(e.youtubeId)}" alt="" loading="lazy" />
+              <span class="gl-card__entry-no">${escapeHtml(entryNo)}</span>
               <div class="gl-card__play" aria-hidden="true"></div>
             </div>
             <div class="gl-card__body">
@@ -199,21 +224,29 @@
     $modalNext.disabled = !hasNext;
   }
 
-  function openEntryByIndex(index) {
+  function openEntryByIndex(index, method = 'pager') {
     if (index < 0 || index >= entries.length) return;
-    openModal(entries[index]);
+    openModal(entries[index], { method });
+  }
+
+  function openEntryFromCard(entry, method) {
+    trackGalleryEvent('gallery_thumbnail_click', entry, { method });
+    openModal(entry, { method });
   }
 
   // ----- モーダル -----
-  function openModal(entry) {
+  function openModal(entry, options = {}) {
     currentEntry = entry;
     currentEntryIndex = entries.findIndex((item) => item.id === entry.id);
     lastFocusedEl = document.activeElement;
 
-    $modalTitle.textContent = entry.title;
+    $modalTitle.textContent = `${formatEntryNo(entry.id)} ${entry.title}`;
     $modalCreator.textContent = entry.creator;
     $modalMessage.textContent = entry.message || '';
     $modalIframe.src = ytEmbed(entry.youtubeId);
+    trackGalleryEvent('gallery_video_play', entry, {
+      method: options.method || 'modal_open',
+    });
 
     // ----- 詳細セクション -----
     if ($modalDetails) $modalDetails.open = false;
@@ -337,6 +370,10 @@
       $modalLikeCount.textContent = String(finalCount);
       updateCardLike(id, finalCount);
       markLiked(id);
+      trackGalleryEvent('gallery_like', currentEntry, {
+        method: 'like_button',
+        like_count: finalCount,
+      });
       $modalLike.disabled = true;
       $modalLike.classList.add('is-pulse');
     } catch (err) {
@@ -348,12 +385,12 @@
 
   function handlePrevClick() {
     if (currentEntryIndex <= 0) return;
-    openEntryByIndex(currentEntryIndex - 1);
+    openEntryByIndex(currentEntryIndex - 1, 'prev_button');
   }
 
   function handleNextClick() {
     if (currentEntryIndex >= entries.length - 1) return;
-    openEntryByIndex(currentEntryIndex + 1);
+    openEntryByIndex(currentEntryIndex + 1, 'next_button');
   }
 
   // ----- イベント -----
@@ -364,7 +401,7 @@
       if (!card) return;
       const id = card.dataset.id;
       const entry = entries.find((x) => x.id === id);
-      if (entry) openModal(entry);
+      if (entry) openEntryFromCard(entry, 'click');
     });
     $grid.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
@@ -373,7 +410,7 @@
       e.preventDefault();
       const id = card.dataset.id;
       const entry = entries.find((x) => x.id === id);
-      if (entry) openModal(entry);
+      if (entry) openEntryFromCard(entry, e.key === ' ' ? 'space_key' : 'enter_key');
     });
 
     // モーダルクローズ
