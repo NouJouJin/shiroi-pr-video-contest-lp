@@ -149,6 +149,23 @@
   transition: transform 0.4s ease;
 }
 .gl-card:hover .gl-card__thumb img { transform: scale(1.05); }
+.gl-card__pending {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(77, 154, 105, 0.82), rgba(212, 120, 155, 0.78)),
+    var(--green-dark);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
 .gl-card__play {
   position: absolute;
   inset: 0;
@@ -569,6 +586,23 @@
   width: 100%;
   height: 100%;
   border: 0;
+}
+.gl-modal__player.is-pending::before {
+  content: '動画リンク準備中';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background:
+    linear-gradient(135deg, rgba(77, 154, 105, 0.86), rgba(212, 120, 155, 0.78)),
+    var(--green-dark);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-align: center;
 }
 .gl-modal__body {
   padding: 28px 32px 32px;

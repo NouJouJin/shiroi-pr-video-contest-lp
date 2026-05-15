@@ -77,6 +77,10 @@
     return `https://www.youtube.com/embed/${encodeURIComponent(id)}?rel=0&modestbranding=1&autoplay=1`;
   }
 
+  function hasYoutube(entry) {
+    return Boolean(entry && entry.youtubeId && String(entry.youtubeId).trim());
+  }
+
   function truncateText(str, maxLength = 68) {
     if (!str) return '作品に込めた想いは、モーダルから詳しくご覧いただけます。';
     const normalized = String(str).replace(/\s+/g, ' ').trim();
@@ -187,12 +191,16 @@
         const count = likeCounts[e.id] || 0;
         const excerpt = truncateText(e.message);
         const entryNo = formatEntryNo(e.id);
+        const playable = hasYoutube(e);
+        const media = playable
+          ? `<img src="${ytThumb(e.youtubeId)}" alt="" loading="lazy" /><div class="gl-card__play" aria-hidden="true"></div>`
+          : `<div class="gl-card__pending" aria-hidden="true">動画リンク準備中</div>`;
+        const actionLabel = playable ? 'を再生' : 'の詳細を表示';
         return `
-          <article class="gl-card" data-id="${escapeHtml(e.id)}" tabindex="0" role="button" aria-label="${escapeHtml(entryNo)} ${escapeHtml(e.title)} を再生">
+          <article class="gl-card" data-id="${escapeHtml(e.id)}" tabindex="0" role="button" aria-label="${escapeHtml(entryNo)} ${escapeHtml(e.title)} ${actionLabel}">
             <div class="gl-card__thumb">
-              <img src="${ytThumb(e.youtubeId)}" alt="" loading="lazy" />
+              ${media}
               <span class="gl-card__entry-no">${escapeHtml(entryNo)}</span>
-              <div class="gl-card__play" aria-hidden="true"></div>
             </div>
             <div class="gl-card__body">
               <h2 class="gl-card__title">${escapeHtml(e.title)}</h2>
@@ -243,10 +251,18 @@
     $modalTitle.textContent = `${formatEntryNo(entry.id)} ${entry.title}`;
     $modalCreator.textContent = entry.creator;
     $modalMessage.textContent = entry.message || '';
-    $modalIframe.src = ytEmbed(entry.youtubeId);
-    trackGalleryEvent('gallery_video_play', entry, {
-      method: options.method || 'modal_open',
-    });
+    if (hasYoutube(entry)) {
+      $modalIframe.parentElement.classList.remove('is-pending');
+      $modalIframe.hidden = false;
+      $modalIframe.src = ytEmbed(entry.youtubeId);
+      trackGalleryEvent('gallery_video_play', entry, {
+        method: options.method || 'modal_open',
+      });
+    } else {
+      $modalIframe.src = '';
+      $modalIframe.hidden = true;
+      $modalIframe.parentElement.classList.add('is-pending');
+    }
 
     // ----- 詳細セクション -----
     if ($modalDetails) $modalDetails.open = false;
