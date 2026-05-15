@@ -6,7 +6,7 @@
 
 | No | 作品タイトル | 制作者 | YouTube |
 |---|---|---|---|
-| 001 | この街でわたしは、笑顔で生きていく | KEN（森田健太郎） | https://youtu.be/BWNOij_828o |
+| 001 | この街でわたしは、笑顔で生きていく | KEN | https://youtu.be/BWNOij_828o |
 | 003 | 「白井市」ってちょうどいい | せき しほ | https://youtu.be/auurYkEiyMU |
 | 004 | 日々が重なる街 | nacka | https://youtu.be/f9fHyx6Yxe0 |
 
@@ -43,7 +43,7 @@
 ### 基本情報
 
 - 作品番号：001
-- 制作者：KEN（森田健太郎）
+- 制作者：KEN
 - YouTube：https://youtu.be/BWNOij_828o
 - 主なAIツール：Kling、Lovart、ElevenLabs
 - 音源：DOVA-SYNDROME
