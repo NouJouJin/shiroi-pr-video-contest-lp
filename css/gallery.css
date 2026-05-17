@@ -144,6 +144,84 @@
   box-shadow: 0 18px 34px rgba(212, 120, 155, 0.24);
 }
 
+/* --- 使い方（3ステップ） --- */
+.gl-howto {
+  padding: 40px 0 0;
+}
+.gl-howto .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.gl-howto__title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-weight: 900;
+  color: var(--brown);
+  text-align: center;
+  margin: 0 0 22px;
+  letter-spacing: 0.02em;
+}
+.gl-howto__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  counter-reset: howto;
+}
+.gl-howto__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 18px 18px 16px;
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid rgba(91, 163, 97, 0.18);
+  box-shadow: 0 10px 24px rgba(36, 53, 47, 0.06);
+  position: relative;
+}
+.gl-howto__num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+  color: var(--white);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 6px 14px rgba(91, 163, 97, 0.28);
+}
+.gl-howto__body { flex: 1; min-width: 0; }
+.gl-howto__heading {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--brown);
+  line-height: 1.4;
+}
+.gl-howto__icon {
+  display: inline-block;
+  color: #ffb300;
+  margin-right: 2px;
+  font-size: 1rem;
+}
+.gl-howto__text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+.gl-howto__text strong {
+  color: var(--green-dark);
+}
+
 /* --- メイン --- */
 .gl-main { padding: 56px 0 96px; }
 .gl-main .container { max-width: 1200px; }
@@ -1249,6 +1327,13 @@
   .gl-hero { padding: 48px 0 36px; }
   .gl-main { padding: 40px 0 64px; }
   .gl-grid { grid-template-columns: 1fr; gap: 20px; }
+  .gl-howto { padding: 28px 0 0; }
+  .gl-howto .container { padding: 0 16px; }
+  .gl-howto__list { grid-template-columns: 1fr; gap: 10px; }
+  .gl-howto__step { padding: 14px; gap: 12px; }
+  .gl-howto__num { width: 32px; height: 32px; font-size: 0.95rem; }
+  .gl-howto__heading { font-size: 0.92rem; }
+  .gl-howto__text { font-size: 0.82rem; }
   .gl-modal { padding: 0; }
   .gl-modal__panel {
     border-radius: 0;
