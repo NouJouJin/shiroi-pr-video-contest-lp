@@ -12,6 +12,11 @@
   const LIKE_API = '/api/like';
   const LS_PREFIX = 'shiroi_liked_';
 
+  // 投票候補（最大3作品まで、ローカルストレージで保持）
+  const VOTE_MAX = 3;
+  const VOTE_LS_KEY = 'shiroi_vote_candidates_v1';
+  const CTA_DISMISS_LS_KEY = 'shiroi_vote_cta_dismissed_v1';
+
   const $grid = document.getElementById('gl-grid');
   const $meta = document.getElementById('gl-meta');
   const $empty = document.getElementById('gl-empty');
@@ -36,11 +41,28 @@
   const $modalCommentWrap = document.getElementById('gl-modal-comment-wrap');
   const $modalComment = document.getElementById('gl-modal-comment');
 
+  // 投票候補UI要素
+  const $modalVoteAdd = document.getElementById('gl-modal-vote-add');
+  const $modalVoteAddLabel = document.getElementById('gl-modal-vote-add-label');
+  const $modalVoteHint = document.getElementById('gl-modal-vote-hint');
+  const $navVoteCount = document.getElementById('gl-nav-vote-count');
+  const $navVoteBadge = document.getElementById('gl-nav-vote-badge');
+  const $voteCandidatesWrap = document.getElementById('gl-vote-candidates-wrap');
+  const $voteCandidatesList = document.getElementById('gl-vote-candidates-list');
+  const $voteCandidatesCount = document.getElementById('gl-vote-candidates-count');
+  const $voteCandidatesClear = document.getElementById('gl-vote-candidates-clear');
+  const $voteCta = document.getElementById('gl-vote-cta');
+  const $voteCtaDesc = document.getElementById('gl-vote-cta-desc');
+  const $voteCtaGo = document.getElementById('gl-vote-cta-go');
+  const $voteCtaClose = document.getElementById('gl-vote-cta-close');
+  const $toast = document.getElementById('gl-toast');
+
   let entries = [];
   let likeCounts = {}; // { id: count }
   let currentEntry = null;
   let currentEntryIndex = -1;
   let lastFocusedEl = null;
+  let toastTimer = null;
 
   // ----- ユーティリティ -----
   function escapeHtml(str) {
@@ -115,6 +137,182 @@
       youtube_id: entry.youtubeId || '',
       ...params,
     });
+  }
+
+  function trackVoteEvent(eventName, params = {}) {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', eventName, {
+      event_category: 'vote_candidate',
+      ...params,
+    });
+  }
+
+  // ----- 投票候補管理（LocalStorage） -----
+  function getCandidates() {
+    try {
+      const raw = localStorage.getItem(VOTE_LS_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) ? parsed.map(String) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function setCandidates(list) {
+    try {
+      localStorage.setItem(VOTE_LS_KEY, JSON.stringify(list));
+    } catch (e) {
+      /* noop */
+    }
+    updateVoteUI();
+  }
+
+  function addCandidate(entry) {
+    const id = String(entry.id);
+    const list = getCandidates();
+    if (list.includes(id)) return { ok: false, reason: 'duplicate', list };
+    if (list.length >= VOTE_MAX) return { ok: false, reason: 'full', list };
+    list.push(id);
+    setCandidates(list);
+    trackGalleryEvent('vote_candidate_add', entry, {
+      candidate_count: list.length,
+      candidates_list: list.join(','),
+    });
+    if (list.length === VOTE_MAX) {
+      showVoteCta('auto');
+    } else {
+      showToast(`「${entry.title}」を候補に追加しました（${list.length}/${VOTE_MAX}）`);
+    }
+    return { ok: true, list };
+  }
+
+  function removeCandidate(entry) {
+    const id = String(entry.id);
+    const list = getCandidates().filter((x) => x !== id);
+    setCandidates(list);
+    trackGalleryEvent('vote_candidate_remove', entry, {
+      candidate_count: list.length,
+      candidates_list: list.join(','),
+    });
+    showToast(`「${entry.title}」を候補から外しました（${list.length}/${VOTE_MAX}）`);
+  }
+
+  function clearCandidates() {
+    const before = getCandidates();
+    setCandidates([]);
+    trackVoteEvent('vote_candidate_clear', { before_count: before.length });
+    showToast('投票候補をすべてクリアしました');
+    hideVoteCta();
+  }
+
+  // ----- 投票候補UIの更新 -----
+  function updateVoteUI() {
+    const list = getCandidates();
+    const count = list.length;
+
+    if ($navVoteCount) $navVoteCount.textContent = String(count);
+    if ($navVoteBadge) {
+      $navVoteBadge.classList.toggle('is-active', count > 0);
+      $navVoteBadge.classList.toggle('is-full', count >= VOTE_MAX);
+    }
+
+    if (currentEntry && $modalVoteAdd) {
+      const inList = list.includes(String(currentEntry.id));
+      const full = !inList && count >= VOTE_MAX;
+      $modalVoteAdd.classList.toggle('is-added', inList);
+      $modalVoteAdd.classList.toggle('is-disabled', full);
+      $modalVoteAdd.disabled = false;
+      $modalVoteAdd.setAttribute('aria-pressed', String(inList));
+      if ($modalVoteAddLabel) {
+        if (inList) {
+          $modalVoteAddLabel.textContent = '候補から外す';
+        } else if (full) {
+          $modalVoteAddLabel.textContent = '候補は3作品まで（フォームへ）';
+        } else {
+          $modalVoteAddLabel.textContent = `投票候補に追加（${count}/${VOTE_MAX}）`;
+        }
+      }
+    }
+
+    renderCandidatesSection(list);
+  }
+
+  function renderCandidatesSection(list) {
+    if (!$voteCandidatesWrap || !$voteCandidatesList) return;
+    if (!list.length) {
+      $voteCandidatesWrap.hidden = true;
+      $voteCandidatesList.innerHTML = '';
+      return;
+    }
+    $voteCandidatesWrap.hidden = false;
+    if ($voteCandidatesCount) $voteCandidatesCount.textContent = String(list.length);
+    const html = list
+      .map((id) => {
+        const entry = entries.find((e) => String(e.id) === String(id));
+        if (!entry) return '';
+        const no = formatEntryNo(entry.id);
+        return `
+          <li class="gl-vote__candidate" data-id="${escapeHtml(entry.id)}">
+            <img src="${ytThumb(entry.youtubeId)}" alt="" loading="lazy" class="gl-vote__candidate-thumb" />
+            <div class="gl-vote__candidate-body">
+              <p class="gl-vote__candidate-no">${escapeHtml(no)}</p>
+              <p class="gl-vote__candidate-title">${escapeHtml(entry.title)}</p>
+              <p class="gl-vote__candidate-creator">by ${escapeHtml(entry.creator)}</p>
+            </div>
+            <button class="gl-vote__candidate-remove" type="button" data-remove-id="${escapeHtml(entry.id)}" aria-label="${escapeHtml(entry.title)}を候補から外す">外す</button>
+          </li>
+        `;
+      })
+      .join('');
+    $voteCandidatesList.innerHTML = html;
+  }
+
+  // ----- 投票CTAバナー（3票揃った時） -----
+  function shouldHideCta() {
+    try {
+      return localStorage.getItem(CTA_DISMISS_LS_KEY) === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+  function markCtaDismissed() {
+    try {
+      localStorage.setItem(CTA_DISMISS_LS_KEY, '1');
+    } catch (e) {
+      /* noop */
+    }
+  }
+  function showVoteCta(trigger) {
+    if (!$voteCta) return;
+    if (shouldHideCta() && trigger !== 'reopen') return;
+    $voteCta.hidden = false;
+    $voteCta.classList.add('is-visible');
+    if ($voteCtaDesc) {
+      $voteCtaDesc.textContent = trigger === 'auto'
+        ? 'おつかれさまでした！下のボタンから投票フォームへ進めます。'
+        : 'いつでも投票フォームへ進めます。';
+    }
+    trackVoteEvent('vote_cta_view', { trigger: trigger || 'auto' });
+  }
+  function hideVoteCta() {
+    if (!$voteCta) return;
+    $voteCta.hidden = true;
+    $voteCta.classList.remove('is-visible');
+  }
+
+  // ----- トースト通知 -----
+  function showToast(message) {
+    if (!$toast) return;
+    if (toastTimer) clearTimeout(toastTimer);
+    $toast.textContent = message;
+    $toast.hidden = false;
+    void $toast.offsetWidth;
+    $toast.classList.add('is-visible');
+    toastTimer = setTimeout(() => {
+      $toast.classList.remove('is-visible');
+      setTimeout(() => { $toast.hidden = true; }, 280);
+    }, 2400);
   }
 
   // ----- データ取得 -----
@@ -347,6 +545,7 @@
     $modalLike.disabled = isLiked(entry.id);
     $modalLike.classList.remove('is-loading', 'is-pulse');
     updateModalPager();
+    updateVoteUI();
 
     $modal.hidden = false;
     document.body.style.overflow = 'hidden';
@@ -409,6 +608,30 @@
     openEntryByIndex(currentEntryIndex + 1, 'next_button');
   }
 
+  // ----- 投票候補ボタンハンドラ -----
+  function handleVoteAddClick() {
+    if (!currentEntry) return;
+    const list = getCandidates();
+    const id = String(currentEntry.id);
+
+    if (list.includes(id)) {
+      removeCandidate(currentEntry);
+      return;
+    }
+    if (list.length >= VOTE_MAX) {
+      trackVoteEvent('vote_candidate_full_prompt', { candidate_count: list.length });
+      showToast('投票候補は3作品までです。投票フォームへ進めます。');
+      closeModal();
+      window.location.hash = 'vote';
+      const target = document.getElementById('vote');
+      if (target && typeof target.scrollIntoView === 'function') {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 80);
+      }
+      return;
+    }
+    addCandidate(currentEntry);
+  }
+
   // ----- イベント -----
   function bindEvents() {
     // カードクリック / Enter
@@ -444,17 +667,61 @@
     $modalLike.addEventListener('click', handleLikeClick);
     if ($modalPrev) $modalPrev.addEventListener('click', handlePrevClick);
     if ($modalNext) $modalNext.addEventListener('click', handleNextClick);
+
+    // 投票候補追加ボタン
+    if ($modalVoteAdd) $modalVoteAdd.addEventListener('click', handleVoteAddClick);
+
+    // 投票候補リスト「外す」
+    if ($voteCandidatesList) {
+      $voteCandidatesList.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-remove-id]');
+        if (!btn) return;
+        const id = btn.getAttribute('data-remove-id');
+        const entry = entries.find((x) => String(x.id) === String(id));
+        if (entry) removeCandidate(entry);
+      });
+    }
+    if ($voteCandidatesClear) {
+      $voteCandidatesClear.addEventListener('click', clearCandidates);
+    }
+
+    // 投票CTAバナー
+    if ($voteCtaGo) {
+      $voteCtaGo.addEventListener('click', () => {
+        trackVoteEvent('vote_cta_click', { candidate_count: getCandidates().length });
+      });
+    }
+    if ($voteCtaClose) {
+      $voteCtaClose.addEventListener('click', () => {
+        hideVoteCta();
+        markCtaDismissed();
+        trackVoteEvent('vote_cta_dismiss', { candidate_count: getCandidates().length });
+      });
+    }
+
+    // ナビの「投票」リンク
+    const navVote = document.getElementById('gl-nav-vote');
+    if (navVote) {
+      navVote.addEventListener('click', () => {
+        trackVoteEvent('vote_nav_click', { candidate_count: getCandidates().length });
+      });
+    }
   }
 
   // ----- 初期化 -----
   async function init() {
     bindEvents();
     renderSkeletons(6);
+    updateVoteUI(); // ナビバッジを初期化
     try {
       const [list, counts] = await Promise.all([loadEntries(), loadLikeCounts()]);
       entries = list;
       likeCounts = counts;
       renderGrid();
+      updateVoteUI(); // entries読込後に候補リストを再描画
+      if (getCandidates().length >= VOTE_MAX) {
+        showVoteCta('reopen');
+      }
     } catch (err) {
       console.error(err);
       $meta.textContent = '';

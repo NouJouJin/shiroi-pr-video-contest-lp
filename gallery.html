@@ -44,7 +44,12 @@
     <nav class="gl-nav">
       <a href="/SHIROI.html" class="gl-nav__link">コンテストTOP</a>
       <a href="/gallery" class="gl-nav__link is-current" aria-current="page">作品ギャラリー</a>
-      <a href="#vote" class="gl-nav__link gl-nav__link--vote">投票受付中</a>
+      <a href="#vote" class="gl-nav__link gl-nav__link--vote gl-nav__vote" id="gl-nav-vote">
+        投票受付中
+        <span class="gl-nav__badge" id="gl-nav-vote-badge" aria-label="現在の投票候補数">
+          <span id="gl-nav-vote-count">0</span>/3
+        </span>
+      </a>
       <a href="#" class="gl-nav__link is-disabled" aria-disabled="true" title="準備中">受賞作品（Coming Soon）</a>
     </nav>
   </div>
@@ -90,6 +95,13 @@
           投票前に<a href="/vote-terms" class="gl-vote__terms-link">投票規約</a>をご確認ください。
         </p>
       </div>
+      <div class="gl-vote__candidates" id="gl-vote-candidates-wrap" hidden>
+        <h3 class="gl-vote__candidates-title">あなたの投票候補（<span id="gl-vote-candidates-count">0</span>/3）</h3>
+        <ul class="gl-vote__candidates-list" id="gl-vote-candidates-list"></ul>
+        <p class="gl-vote__candidates-note">
+          作品Noを参考に、下のフォームで上位3作品を選択してください。候補は <button type="button" class="gl-vote__candidates-clear" id="gl-vote-candidates-clear">すべてクリア</button> できます。
+        </p>
+      </div>
       <div class="gl-vote__actions">
         <a class="gl-vote__button" href="https://airtable.com/applcqOMmwyE9fjtX/pagGy8ELMppkgmWoD/form" target="_blank" rel="noopener noreferrer">
           外部フォームで投票する
@@ -101,6 +113,23 @@
     </section>
   </div>
 </main>
+
+<!-- ===== 投票CTAバナー（候補が揃った時のみ表示） ===== -->
+<div class="gl-vote-cta" id="gl-vote-cta" hidden role="region" aria-label="投票準備完了のお知らせ">
+  <div class="gl-vote-cta__inner">
+    <div class="gl-vote-cta__text">
+      <p class="gl-vote-cta__title">投票候補が3作品そろいました 🎉</p>
+      <p class="gl-vote-cta__desc" id="gl-vote-cta-desc">いつでも投票フォームへ進めます。</p>
+    </div>
+    <div class="gl-vote-cta__actions">
+      <a href="#vote" class="gl-vote-cta__btn" id="gl-vote-cta-go">投票フォームへ進む</a>
+      <button class="gl-vote-cta__close" id="gl-vote-cta-close" type="button" aria-label="このお知らせを閉じる">×</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== トースト（候補追加時の小通知） ===== -->
+<div class="gl-toast" id="gl-toast" hidden aria-live="polite"></div>
 
 <!-- ===== モーダル ===== -->
 <div class="gl-modal" id="gl-modal" role="dialog" aria-modal="true" aria-labelledby="gl-modal-title" hidden>
@@ -155,11 +184,18 @@
       </details>
 
       <div class="gl-modal__actions">
+        <button class="gl-vote-add" id="gl-modal-vote-add" type="button" aria-pressed="false">
+          <span class="gl-vote-add__icon" aria-hidden="true">★</span>
+          <span class="gl-vote-add__label" id="gl-modal-vote-add-label">投票候補に追加</span>
+        </button>
         <button class="gl-like" id="gl-modal-like" type="button">
           <span class="gl-like__icon" aria-hidden="true">♥</span>
           <span class="gl-like__count" id="gl-modal-like-count">0</span>
         </button>
       </div>
+      <p class="gl-vote-add__hint" id="gl-modal-vote-hint">
+        印象に残った作品を <strong>最大3作品</strong> まで「投票候補」に追加できます。揃ったら投票フォームへご案内します。
+      </p>
     </div>
   </div>
 </div>
