@@ -1385,7 +1385,7 @@
 }
 
 .gl-hero::after {
-  content: "VOTE OPEN";
+  content: "ARCHIVE";
   position: absolute;
   right: max(28px, calc((100vw - 1120px) / 2));
   bottom: 48px;

@@ -113,16 +113,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const galleryMetaEl = document.getElementById('gallery-cta-meta');
 
     if (!entries.length) {
-      if (galleryMetaEl) galleryMetaEl.textContent = '公開作品は随時追加中です。';
+      if (galleryMetaEl) galleryMetaEl.textContent = '投票期間は終了しました。';
       return;
     }
 
     if (countEl) countEl.textContent = `現在 ${entries.length} 作品を公開中`;
     if (statusEl) {
-      statusEl.textContent = '公開中の作品を参考にしながら、あなたらしい切り口で応募できます。';
+      statusEl.textContent = '投票に参加してくださった皆さま、ありがとうございました。';
     }
     if (galleryMetaEl) {
-      galleryMetaEl.textContent = `現在 ${entries.length} 作品をギャラリー公開中`;
+      galleryMetaEl.textContent = `全 ${entries.length} 作品をアーカイブ公開中`;
     }
 
     if (!latestEl) return;
