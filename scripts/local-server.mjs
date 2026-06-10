@@ -5,6 +5,7 @@ import { extname, resolve, sep } from 'node:path';
 const root = process.cwd();
 const preferredPort = Number(process.env.PORT || 4173);
 const host = process.env.HOST || '127.0.0.1';
+const awardsPassword = process.env.AWARDS_PASSWORD || 'metagri';
 
 const types = {
   '.html': 'text/html; charset=utf-8',
@@ -22,8 +23,39 @@ const types = {
 function routePath(pathname) {
   if (pathname === '/' || pathname === '/SHIROI') return '/SHIROI.html';
   if (pathname === '/gallery') return '/gallery.html';
+  if (pathname === '/awards') return '/awards.html';
   if (pathname === '/vote-terms') return '/vote-terms.html';
   return pathname;
+}
+
+function isAwardsPath(url) {
+  const { pathname } = new URL(url, `http://${host}:${preferredPort}`);
+  return pathname === '/awards' || pathname === '/awards.html';
+}
+
+function isAwardsAuthorized(req) {
+  const authorization = req.headers.authorization || '';
+  const [scheme, encoded] = authorization.split(' ');
+
+  if (scheme !== 'Basic' || !encoded) return false;
+
+  try {
+    const decoded = Buffer.from(encoded, 'base64').toString('utf8');
+    const separatorIndex = decoded.indexOf(':');
+    const password = separatorIndex >= 0 ? decoded.slice(separatorIndex + 1) : decoded;
+    return password === awardsPassword;
+  } catch {
+    return false;
+  }
+}
+
+function requestAwardsAuth(res) {
+  res.writeHead(401, {
+    'content-type': 'text/plain; charset=utf-8',
+    'www-authenticate': 'Basic realm="Awards Preview", charset="UTF-8"',
+    'cache-control': 'no-store',
+  });
+  res.end('Authentication required');
 }
 
 function fileFromUrl(url) {
@@ -36,6 +68,11 @@ function fileFromUrl(url) {
 function createAppServer() {
   return createServer(async (req, res) => {
     try {
+      if (isAwardsPath(req.url || '/') && !isAwardsAuthorized(req)) {
+        requestAwardsAuth(res);
+        return;
+      }
+
       const file = fileFromUrl(req.url || '/');
 
       if (!file.startsWith(root)) {
@@ -71,6 +108,7 @@ function listen(port, attemptsLeft = 20) {
   server.listen(port, host, () => {
     console.log(`Local preview: http://${host}:${port}/SHIROI.html`);
     console.log(`Gallery:       http://${host}:${port}/gallery`);
+    console.log(`Awards:        http://${host}:${port}/awards`);
   });
 }
 

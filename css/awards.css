@@ -1,0 +1,393 @@
+/* ============================================
+   受賞作品ページ — awards.css
+   ============================================ */
+
+.aw-page {
+  background: #fffaf5;
+  color: var(--text);
+}
+
+.aw-container {
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.aw-eyebrow {
+  margin: 0 0 10px;
+  color: var(--sakura-dark);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.aw-hero {
+  position: relative;
+  min-height: clamp(520px, 76vh, 720px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #24352f;
+}
+
+.aw-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.aw-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aw-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(18, 30, 25, 0.88) 0%, rgba(18, 30, 25, 0.66) 44%, rgba(18, 30, 25, 0.18) 100%);
+}
+
+.aw-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 72px 0 80px;
+}
+
+.aw-hero .aw-eyebrow {
+  color: #fbd4df;
+}
+
+.aw-hero__title {
+  margin: 0;
+  color: var(--white);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(2rem, 6vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.16;
+}
+
+.aw-hero__lead {
+  max-width: 680px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(0.98rem, 2vw, 1.14rem);
+  line-height: 2;
+}
+
+.aw-hero__actions,
+.aw-closing__inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.aw-hero__actions {
+  margin-top: 34px;
+}
+
+.aw-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 900;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition);
+}
+
+.aw-button:hover {
+  transform: translateY(-1px);
+}
+
+.aw-button--primary {
+  background: var(--green-dark);
+  color: var(--white);
+  box-shadow: 0 14px 30px rgba(35, 79, 59, 0.24);
+}
+
+.aw-button--primary:hover {
+  background: var(--sakura-dark);
+  color: var(--white);
+}
+
+.aw-button--ghost {
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.aw-button--ghost:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--white);
+}
+
+.aw-feature,
+.aw-list-section,
+.aw-closing {
+  padding: 72px 0;
+}
+
+.aw-feature {
+  background: #fffdf8;
+}
+
+.aw-list-section {
+  background: #f6f1eb;
+}
+
+.aw-section-head {
+  margin-bottom: 28px;
+}
+
+.aw-section-title {
+  margin: 0;
+  color: var(--brown);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.aw-grand {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+  gap: 34px;
+  align-items: stretch;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--white);
+  border: 1px solid rgba(107, 78, 61, 0.1);
+  box-shadow: 0 18px 48px rgba(36, 53, 47, 0.12);
+}
+
+.aw-grand__thumb,
+.aw-card__thumb {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #24352f;
+}
+
+.aw-grand__thumb {
+  border-radius: 18px;
+  min-height: 360px;
+}
+
+.aw-grand__thumb img,
+.aw-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition);
+}
+
+.aw-grand__thumb:hover img,
+.aw-card__thumb:hover img {
+  transform: scale(1.03);
+}
+
+.aw-play {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--green-dark);
+  font-weight: 900;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.aw-grand__body {
+  align-self: center;
+}
+
+.aw-prize {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin: 0 0 12px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(212, 167, 66, 0.16);
+  color: #8a6421;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.aw-grand h3,
+.aw-card h3 {
+  margin: 0;
+  color: var(--brown);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.aw-grand h3 {
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+}
+
+.aw-card h3 {
+  font-size: 1.24rem;
+}
+
+.aw-creator {
+  margin: 8px 0 16px;
+  color: var(--green-dark);
+  font-weight: 900;
+}
+
+.aw-grand p,
+.aw-card p,
+.aw-closing p {
+  line-height: 1.9;
+}
+
+.aw-grand__body > p:last-child,
+.aw-card__body > p:last-child {
+  margin-bottom: 0;
+}
+
+.aw-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.aw-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1px solid rgba(36, 53, 47, 0.08);
+  box-shadow: 0 14px 34px rgba(36, 53, 47, 0.1);
+}
+
+.aw-card__thumb {
+  aspect-ratio: 16 / 9;
+}
+
+.aw-card__body {
+  padding: 20px;
+}
+
+.aw-card--special .aw-prize {
+  background: rgba(91, 163, 97, 0.15);
+  color: var(--green-dark);
+}
+
+.aw-card--semi .aw-prize {
+  background: rgba(212, 120, 155, 0.14);
+  color: var(--sakura-dark);
+}
+
+.aw-note {
+  margin-top: 14px;
+  color: var(--text-light);
+  font-size: 0.92rem;
+}
+
+.aw-selection-comment {
+  margin-top: 16px;
+  padding: 14px 15px;
+  border-radius: 14px;
+  background: rgba(232, 245, 233, 0.72);
+  border: 1px solid rgba(91, 163, 97, 0.16);
+  color: #2f4b38;
+  font-size: 0.92rem;
+}
+
+.aw-closing {
+  background: #fffdf8;
+}
+
+.aw-closing__inner {
+  justify-content: space-between;
+  padding: 34px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(232, 245, 233, 0.92), rgba(253, 232, 239, 0.82));
+  border: 1px solid rgba(91, 163, 97, 0.16);
+}
+
+.aw-closing__inner > div {
+  max-width: 700px;
+}
+
+@media (max-width: 960px) {
+  .aw-grand {
+    grid-template-columns: 1fr;
+  }
+
+  .aw-grand__thumb {
+    min-height: 300px;
+  }
+
+  .aw-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .aw-container,
+  .aw-hero__inner {
+    width: min(100% - 28px, 1120px);
+  }
+
+  .aw-hero {
+    min-height: 620px;
+  }
+
+  .aw-hero__overlay {
+    background: linear-gradient(180deg, rgba(18, 30, 25, 0.86) 0%, rgba(18, 30, 25, 0.7) 62%, rgba(18, 30, 25, 0.38) 100%);
+  }
+
+  .aw-hero__inner {
+    padding: 64px 0;
+  }
+
+  .aw-hero__actions,
+  .aw-closing__inner {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .aw-button {
+    width: 100%;
+  }
+
+  .aw-feature,
+  .aw-list-section,
+  .aw-closing {
+    padding: 48px 0;
+  }
+
+  .aw-grand {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .aw-grand__thumb {
+    min-height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 14px;
+  }
+
+  .aw-card {
+    border-radius: 18px;
+  }
+
+  .aw-closing__inner {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+}

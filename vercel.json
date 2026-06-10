@@ -4,11 +4,13 @@
   "redirects": [
     { "source": "/SHIROI.html", "destination": "/", "permanent": true },
     { "source": "/gallery.html", "destination": "/gallery", "permanent": true },
+    { "source": "/awards.html", "destination": "/awards", "permanent": true },
     { "source": "/vote-terms.html", "destination": "/vote-terms", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/SHIROI.html" },
     { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/awards", "destination": "/awards.html" },
     { "source": "/vote-terms", "destination": "/vote-terms.html" }
   ],
   "headers": [

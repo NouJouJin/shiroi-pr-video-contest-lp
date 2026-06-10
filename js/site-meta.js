@@ -5,7 +5,7 @@
   if (!body) return;
 
   const page = body.dataset.page;
-  const ogImage = 'https://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png';
+  const defaultOgImage = 'https://metagri-labo.com/wp-content/uploads/2026/04/914e8faa6d3c8a6659f16a7e6610390e.png';
   const pages = {
     contest: {
       title: '白井市PR動画コンテスト ｜ Metagri研究所 presents',
@@ -16,6 +16,13 @@
       title: '作品アーカイブ | 白井市PR動画コンテスト',
       description: '白井市PR動画コンテストの応募作品アーカイブ。投票に参加してくださった皆さまへの感謝とともに、全作品を公開しています。',
       path: '/gallery'
+    },
+    awards: {
+      title: '受賞作品 | 白井市PR動画コンテスト',
+      description: '白井市PR動画コンテストの受賞作品を発表。グランプリ、準グランプリ、Metagri研究所賞、農情人賞に選ばれた作品を紹介します。',
+      path: '/awards',
+      ogImage: 'https://i.ytimg.com/vi/-QzFBNrApH0/hqdefault.jpg',
+      ogImageAlt: 'グランプリ作品 No.19 白井市クエスト'
     }
   };
 
@@ -43,6 +50,8 @@
   }
 
   const canonicalUrl = new URL(current.path, window.location.origin).toString();
+  const ogImage = current.ogImage || defaultOgImage;
+  const ogImageAlt = current.ogImageAlt || '白井市PR動画コンテストのキービジュアル';
 
   document.title = current.title;
   upsertMeta('name', 'description', current.description);
@@ -55,12 +64,12 @@
   upsertMeta('property', 'og:description', current.description);
   upsertMeta('property', 'og:url', canonicalUrl);
   upsertMeta('property', 'og:image', ogImage);
-  upsertMeta('property', 'og:image:alt', '白井市PR動画コンテストのキービジュアル');
+  upsertMeta('property', 'og:image:alt', ogImageAlt);
   upsertMeta('name', 'twitter:card', 'summary_large_image');
   upsertMeta('name', 'twitter:title', current.title);
   upsertMeta('name', 'twitter:description', current.description);
   upsertMeta('name', 'twitter:url', canonicalUrl);
   upsertMeta('name', 'twitter:image', ogImage);
-  upsertMeta('name', 'twitter:image:alt', '白井市PR動画コンテストのキービジュアル');
+  upsertMeta('name', 'twitter:image:alt', ogImageAlt);
   upsertLink('canonical', canonicalUrl);
 })();

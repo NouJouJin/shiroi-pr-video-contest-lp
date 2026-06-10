@@ -11,8 +11,10 @@ Metagri研究所 presents 白井市PR動画コンテストの公式ランディ�
 ├── SHIROI.js            LPの花びらアニメーション等（既存）
 │
 ├── gallery.html         作品ギャラリーページ
+├── awards.html          受賞作品ページ
 ├── css/
-│   └── gallery.css      ギャラリー専用スタイル
+│   ├── gallery.css      ギャラリー専用スタイル
+│   └── awards.css       受賞作品ページ専用スタイル
 ├── js/
 │   └── gallery.js       ギャラリー描画 / モーダル / いいね処理
 ├── data/
@@ -43,7 +45,12 @@ Metagri研究所 presents 白井市PR動画コンテストの公式ランディ�
   - APIエラー時もUIは壊れないフォールバック
 - **キーボード操作対応**（Tab → Enter で再生、Esc で閉じる）
 - **レスポンシブ**（SP時はモーダルがフルスクリーン化）
-- **受賞ページ導線**（ヘッダーに Coming Soon プレースホルダー）
+- **受賞ページ導線**（ヘッダーから受賞作品ページへ遷移）
+
+### 受賞作品ページ（`awards.html`）
+- **グランプリ / 準グランプリ / Metagri研究所賞 / 農情人賞の紹介**
+- **YouTubeサムネイルから各受賞作品へ遷移**
+- **全応募作品ギャラリーへの導線**
 
 ---
 
@@ -134,6 +141,7 @@ vercel dev
 |---|---|
 | `http://localhost:3000/` | コンテストLP（`SHIROI.html`） |
 | `http://localhost:3000/gallery` | 作品ギャラリー |
+| `http://localhost:3000/awards` | 受賞作品（Basic認証: パスワード `metagri`） |
 | `http://localhost:3000/api/like` (GET) | いいね数一覧（JSON） |
 | `http://localhost:3000/api/like` (POST) | いいね追加（JSON） |
 
@@ -247,8 +255,8 @@ vercel --prod
 
 ## 🗺️ 今後の拡張
 
-- [ ] 受賞作品ページ（`awards.html`）の追加
-  - `gallery.html` ヘッダーの「Coming Soon」リンクを実リンクに差し替え
+- [x] 受賞作品ページ（`awards.html`）の追加
+  - `gallery.html` ヘッダーの受賞作品リンクを実リンクに差し替え
 - [ ] 受賞バッジ表示（`entries.json` に `award` フィールドを追加して条件付き描画）
 - [ ] カテゴリ・タグによる絞り込み
 - [ ] OGP画像の動的生成
