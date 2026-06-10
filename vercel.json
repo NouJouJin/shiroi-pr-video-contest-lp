@@ -2,7 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/SHIROI.html", "destination": "/", "permanent": true },
+    { "source": "/", "destination": "/SHIROI", "permanent": false },
+    { "source": "/SHIROI.html", "destination": "/SHIROI", "permanent": true },
     { "source": "/gallery.html", "destination": "/gallery", "permanent": true },
     { "source": "/awards.html", "destination": "/awards", "permanent": true },
     { "source": "/vote-terms.html", "destination": "/vote-terms", "permanent": true }

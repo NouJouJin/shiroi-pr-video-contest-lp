@@ -10,7 +10,7 @@
     contest: {
       title: '白井市PR動画コンテスト ｜ Metagri研究所 presents',
       description: '白井市 × Metagri研究所による地域PR動画コンテスト。応募受付・コミュニティ投票は終了し、応募作品をアーカイブとして公開しています。',
-      path: '/'
+      path: '/SHIROI'
     },
     gallery: {
       title: '作品アーカイブ | 白井市PR動画コンテスト',
