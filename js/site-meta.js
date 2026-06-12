@@ -19,7 +19,7 @@
     },
     awards: {
       title: '受賞作品 | 白井市PR動画コンテスト',
-      description: '白井市PR動画コンテストの受賞作品を発表。グランプリ、準グランプリ、Metagri研究所賞、農情人賞に選ばれた作品を紹介します。',
+      description: '白井市PR動画コンテストの受賞作品を発表。グランプリ、準グランプリ、Metagri研究所賞、農情人賞、白井市特別賞に選ばれた作品を紹介します。',
       path: '/awards',
       ogImage: 'https://i.ytimg.com/vi/-QzFBNrApH0/hqdefault.jpg',
       ogImageAlt: 'グランプリ作品 No.19 白井市クエスト'

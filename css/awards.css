@@ -134,8 +134,16 @@
   background: #fffdf8;
 }
 
+.aw-feature--semi {
+  background: #fff7f9;
+}
+
 .aw-list-section {
   background: #f6f1eb;
+}
+
+.aw-list-section--city {
+  background: #fffdf8;
 }
 
 .aw-section-head {
@@ -151,6 +159,14 @@
   line-height: 1.35;
 }
 
+.aw-section-lead {
+  max-width: 720px;
+  margin: 12px 0 0;
+  color: var(--text-light);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
 .aw-grand {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
@@ -161,6 +177,11 @@
   background: var(--white);
   border: 1px solid rgba(107, 78, 61, 0.1);
   box-shadow: 0 18px 48px rgba(36, 53, 47, 0.12);
+}
+
+.aw-grand--secondary {
+  grid-template-columns: minmax(320px, 0.92fr) minmax(0, 1.08fr);
+  box-shadow: 0 16px 40px rgba(212, 120, 155, 0.12);
 }
 
 .aw-grand__thumb,
@@ -262,6 +283,10 @@
   gap: 22px;
 }
 
+.aw-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .aw-card {
   display: flex;
   flex-direction: column;
@@ -289,6 +314,11 @@
 .aw-card--semi .aw-prize {
   background: rgba(212, 120, 155, 0.14);
   color: var(--sakura-dark);
+}
+
+.aw-card--city .aw-prize {
+  background: rgba(64, 132, 151, 0.14);
+  color: #2d6675;
 }
 
 .aw-note {
@@ -325,6 +355,10 @@
 
 @media (max-width: 960px) {
   .aw-grand {
+    grid-template-columns: 1fr;
+  }
+
+  .aw-grand--secondary {
     grid-template-columns: 1fr;
   }
 
