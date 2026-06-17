@@ -6,12 +6,14 @@
     { "source": "/SHIROI.html", "destination": "/SHIROI", "permanent": true },
     { "source": "/gallery.html", "destination": "/gallery", "permanent": true },
     { "source": "/awards.html", "destination": "/awards", "permanent": true },
+    { "source": "/seminar.html", "destination": "/seminar", "permanent": true },
     { "source": "/vote-terms.html", "destination": "/vote-terms", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/SHIROI.html" },
     { "source": "/gallery", "destination": "/gallery.html" },
     { "source": "/awards", "destination": "/awards.html" },
+    { "source": "/seminar", "destination": "/seminar.html" },
     { "source": "/vote-terms", "destination": "/vote-terms.html" }
   ],
   "headers": [

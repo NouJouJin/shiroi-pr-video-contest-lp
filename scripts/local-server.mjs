@@ -23,6 +23,7 @@ function routePath(pathname) {
   if (pathname === '/' || pathname === '/SHIROI') return '/SHIROI.html';
   if (pathname === '/gallery') return '/gallery.html';
   if (pathname === '/awards') return '/awards.html';
+  if (pathname === '/seminar') return '/seminar.html';
   if (pathname === '/vote-terms') return '/vote-terms.html';
   return pathname;
 }
@@ -73,6 +74,7 @@ function listen(port, attemptsLeft = 20) {
     console.log(`Local preview: http://${host}:${port}/SHIROI.html`);
     console.log(`Gallery:       http://${host}:${port}/gallery`);
     console.log(`Awards:        http://${host}:${port}/awards`);
+    console.log(`Seminar:       http://${host}:${port}/seminar`);
   });
 }
 
