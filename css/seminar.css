@@ -58,9 +58,25 @@
   display: none;
 }
 
+.sm-top-banner {
+  padding: 34px 0;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(73, 175, 223, 0.14), transparent 24rem),
+    #f4f9fd;
+}
+
+.sm-top-banner img {
+  display: block;
+  width: min(920px, 100%);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 18px;
+  box-shadow: 0 22px 54px rgba(20, 57, 84, 0.16);
+}
+
 .sm-hero {
   position: relative;
-  min-height: min(720px, calc(100vh - 70px));
+  min-height: 610px;
   display: flex;
   align-items: center;
   isolation: isolate;
@@ -111,27 +127,14 @@
 }
 
 .sm-hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 0.88fr) minmax(430px, 1.12fr);
-  gap: 48px;
-  align-items: center;
-  padding: 82px 0 94px;
-}
-
-.sm-hero__banner {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 22px;
-  background: #fff;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.32);
-  transform: rotate(1.25deg);
-}
-
-.sm-hero__banner img {
   display: block;
-  width: 100%;
-  height: auto;
+  padding: 76px 0 84px;
+}
+
+.sm-hero__content {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .sm-kicker {
@@ -140,7 +143,7 @@
 
 .sm-hero h1 {
   max-width: 760px;
-  margin: 0;
+  margin: 0 auto;
   color: #fff;
   font-family: 'Zen Maru Gothic', sans-serif;
   font-size: clamp(2.9rem, 5.4vw, 5rem);
@@ -161,7 +164,7 @@
 
 .sm-hero__lead {
   max-width: 670px;
-  margin: 18px 0 0;
+  margin: 18px auto 0;
   color: rgba(255, 255, 255, 0.86);
   font-size: 1rem;
   line-height: 1.9;
@@ -172,7 +175,7 @@
   gap: 0;
   width: fit-content;
   max-width: 100%;
-  margin: 32px 0 0;
+  margin: 32px auto 0;
   padding: 0;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.32);
@@ -212,6 +215,7 @@
   align-items: center;
   gap: 24px;
   margin-top: 30px;
+  justify-content: center;
 }
 
 .sm-button {
@@ -551,18 +555,21 @@
   align-items: center;
 }
 
-.sm-city-voice__mark {
+.sm-city-voice__logo {
   display: grid;
-  width: 260px;
-  aspect-ratio: 1;
+  min-height: 280px;
+  margin: 0;
   place-items: center;
-  border-radius: 50%;
-  color: #fff;
-  background: var(--sm-pink);
-  font-family: 'Zen Maru Gothic', sans-serif;
-  font-size: 4rem;
-  font-weight: 900;
-  box-shadow: 24px 24px 0 rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(12, 63, 108, 0.1);
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 20px 20px 0 rgba(255, 255, 255, 0.42);
+}
+
+.sm-city-voice__logo img {
+  display: block;
+  width: min(196px, 72%);
+  height: auto;
 }
 
 .sm-city-voice__inner > div:last-child > p:last-child {
@@ -859,9 +866,8 @@
     gap: 48px;
   }
 
-  .sm-city-voice__mark {
-    width: 180px;
-    font-size: 3rem;
+  .sm-city-voice__logo {
+    min-height: 220px;
   }
 
   .sm-program__heading {
@@ -876,18 +882,8 @@
     grid-column: auto;
   }
 
-  .sm-hero__inner {
-    grid-template-columns: 1fr;
-    gap: 34px;
-  }
-
   .sm-hero__content {
     max-width: 720px;
-  }
-
-  .sm-hero__banner {
-    max-width: 760px;
-    transform: none;
   }
 }
 
@@ -999,11 +995,18 @@
     gap: 42px;
   }
 
-  .sm-city-voice__mark {
-    width: 150px;
-    margin-left: 12px;
-    font-size: 2.5rem;
-    box-shadow: 16px 16px 0 rgba(255, 255, 255, 0.52);
+  .sm-top-banner {
+    padding: 18px 0;
+  }
+
+  .sm-top-banner img {
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(20, 57, 84, 0.14);
+  }
+
+  .sm-city-voice__logo {
+    min-height: 210px;
+    box-shadow: 12px 12px 0 rgba(255, 255, 255, 0.42);
   }
 
   .sm-audience-list {
