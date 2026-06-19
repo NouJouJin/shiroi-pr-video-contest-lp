@@ -126,6 +126,7 @@
 
 .aw-feature,
 .aw-list-section,
+.aw-seminar,
 .aw-closing {
   padding: 72px 0;
 }
@@ -337,6 +338,105 @@
   font-size: 0.92rem;
 }
 
+.aw-seminar {
+  background: #eaf2eb;
+}
+
+.aw-seminar__panel {
+  display: grid;
+  grid-template-columns: minmax(380px, 1.08fr) minmax(0, 0.92fr);
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: #17372b;
+  box-shadow: 0 24px 60px rgba(23, 55, 43, 0.2);
+}
+
+.aw-seminar__visual {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  background: #eef7ff;
+}
+
+.aw-seminar__visual img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(0.9) contrast(1.04);
+}
+
+.aw-seminar__visual img {
+  object-position: center;
+}
+
+.aw-seminar__body {
+  align-self: center;
+  padding: 46px;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.aw-seminar__body .aw-eyebrow {
+  color: #f2ca7a;
+}
+
+.aw-seminar__body .aw-section-title {
+  color: #fff;
+}
+
+.aw-seminar__body > p:not(.aw-eyebrow) {
+  margin: 18px 0 0;
+  line-height: 1.95;
+}
+
+.aw-seminar__facts {
+  display: grid;
+  margin: 24px 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.17);
+}
+
+.aw-seminar__facts > div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.17);
+}
+
+.aw-seminar__facts dt {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.aw-seminar__facts dd {
+  margin: 0;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.aw-seminar__body .aw-button--primary {
+  background: #fff;
+  color: var(--green-dark);
+}
+
+.aw-seminar__body .aw-button--primary:hover {
+  color: #fff;
+  background: var(--sakura-dark);
+}
+
+.aw-seminar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.aw-seminar__body .aw-button--ghost {
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
 .aw-closing {
   background: #fffdf8;
 }
@@ -368,6 +468,14 @@
 
   .aw-grid {
     grid-template-columns: 1fr;
+  }
+
+  .aw-seminar__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .aw-seminar__visual {
+    min-height: 280px;
   }
 }
 
@@ -401,6 +509,7 @@
 
   .aw-feature,
   .aw-list-section,
+  .aw-seminar,
   .aw-closing {
     padding: 48px 0;
   }
@@ -418,6 +527,31 @@
 
   .aw-card {
     border-radius: 18px;
+  }
+
+  .aw-seminar__panel {
+    border-radius: 18px;
+  }
+
+  .aw-seminar__visual {
+    min-height: 220px;
+  }
+
+  .aw-seminar__body {
+    padding: 28px 20px;
+  }
+
+  .aw-seminar__facts > div {
+    grid-template-columns: 78px 1fr;
+    gap: 10px;
+  }
+
+  .aw-seminar__body .aw-button {
+    width: 100%;
+  }
+
+  .aw-seminar__actions {
+    display: grid;
   }
 
   .aw-closing__inner {

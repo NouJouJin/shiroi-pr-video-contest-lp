@@ -60,11 +60,14 @@
 
 .sm-hero {
   position: relative;
-  min-height: min(820px, calc(100vh - 70px));
+  min-height: min(720px, calc(100vh - 70px));
   display: flex;
   align-items: center;
   isolation: isolate;
-  background: #102b21;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(91, 163, 151, 0.28), transparent 25rem),
+    radial-gradient(circle at 8% 88%, rgba(233, 161, 184, 0.16), transparent 24rem),
+    #102b21;
 }
 
 .sm-hero__visual,
@@ -108,7 +111,27 @@
 }
 
 .sm-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(430px, 1.12fr);
+  gap: 48px;
+  align-items: center;
   padding: 82px 0 94px;
+}
+
+.sm-hero__banner {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.32);
+  transform: rotate(1.25deg);
+}
+
+.sm-hero__banner img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .sm-kicker {
@@ -120,7 +143,7 @@
   margin: 0;
   color: #fff;
   font-family: 'Zen Maru Gothic', sans-serif;
-  font-size: clamp(3.1rem, 8vw, 6.8rem);
+  font-size: clamp(2.9rem, 5.4vw, 5rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: 0.04em;
@@ -199,6 +222,27 @@
   padding: 0 28px;
   border-radius: 999px;
   font-weight: 900;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sm-button:hover {
+  transform: translateY(-2px);
+}
+
+.sm-button--primary {
+  color: var(--sm-ink);
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.2);
+}
+
+.sm-button--primary:hover {
+  color: #fff;
+  background: var(--sm-pink);
+}
+
+.sm-button--light {
+  color: var(--sm-ink);
+  background: #fff;
 }
 
 .sm-button--pending {
@@ -233,6 +277,7 @@
 .sm-program,
 .sm-audience,
 .sm-details,
+.sm-organizer,
 .sm-faq {
   padding: 88px 0;
 }
@@ -458,6 +503,43 @@
   background: var(--sm-green-bright);
 }
 
+.sm-moderator {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 30px;
+  margin-top: 32px;
+  padding: 30px 34px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.sm-moderator__label {
+  margin: 3px 0 0;
+  color: #f2ca7a;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.sm-moderator h3 {
+  margin: 0;
+  color: #fff;
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.45rem;
+}
+
+.sm-moderator__role {
+  margin: 5px 0 12px;
+  color: #bfe0c8;
+  font-weight: 900;
+}
+
+.sm-moderator div > p:last-child {
+  margin: 0;
+  line-height: 1.85;
+}
+
 .sm-city-voice {
   background: #f6e8e8;
 }
@@ -657,6 +739,36 @@
   margin: 8px 0 18px;
 }
 
+.sm-organizer {
+  background: #fff;
+}
+
+.sm-organizer__inner {
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  gap: 72px;
+}
+
+.sm-organizer__copy p {
+  margin: 0;
+  line-height: 2;
+}
+
+.sm-organizer__copy p + p {
+  margin-top: 12px;
+}
+
+.sm-text-link--dark {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--sm-green);
+  text-decoration-color: rgba(33, 79, 60, 0.35);
+}
+
+.sm-text-link--dark:hover {
+  color: var(--sakura-dark);
+}
+
 .sm-faq {
   background: var(--sm-cream);
 }
@@ -711,11 +823,12 @@
 
 @media (max-width: 960px) {
   .sm-hero {
-    min-height: 760px;
+    min-height: auto;
   }
 
   .sm-intro__grid,
   .sm-program__layout,
+  .sm-organizer__inner,
   .sm-faq__layout {
     grid-template-columns: 1fr;
     gap: 34px;
@@ -762,6 +875,20 @@
   .sm-registration {
     grid-column: auto;
   }
+
+  .sm-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .sm-hero__content {
+    max-width: 720px;
+  }
+
+  .sm-hero__banner {
+    max-width: 760px;
+    transform: none;
+  }
 }
 
 @media (max-width: 767px) {
@@ -774,8 +901,8 @@
   }
 
   .sm-hero {
-    min-height: 760px;
-    align-items: flex-end;
+    min-height: auto;
+    align-items: center;
   }
 
   .sm-hero__visual {
@@ -788,11 +915,11 @@
   }
 
   .sm-hero__inner {
-    padding: 70px 0 44px;
+    padding: 52px 0 58px;
   }
 
   .sm-hero h1 {
-    font-size: clamp(2.7rem, 14vw, 4.4rem);
+    font-size: clamp(2.6rem, 12vw, 3.7rem);
   }
 
   .sm-hero__lead br {
@@ -834,6 +961,7 @@
   .sm-program,
   .sm-audience,
   .sm-details,
+  .sm-organizer,
   .sm-faq {
     padding: 58px 0;
   }
@@ -852,6 +980,18 @@
 
   .sm-speaker-card__body {
     padding: 26px 20px;
+  }
+
+  .sm-speaker-card__name small {
+    display: block;
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  .sm-moderator {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 20px;
   }
 
   .sm-city-voice__inner {

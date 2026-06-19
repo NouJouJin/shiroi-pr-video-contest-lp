@@ -25,12 +25,11 @@
       ogImageAlt: 'グランプリ作品 No.19 白井市クエスト'
     },
     seminar: {
-      title: 'AIで描いた白井市の魅力 | 受賞クリエイター登壇セミナー',
-      description: '白井市PR動画コンテストの受賞クリエイターが、地域の魅力を見つけ、AI動画として表現するまでの舞台裏を語る無料オンラインセミナーです。2026年7月4日開催。',
+      title: '地域の魅力を、AIで映像に。｜受賞クリエイターが語る地域PR動画制作の舞台裏',
+      description: '地域の魅力をどう見つけ、AIで映像や物語へ変えていくのか。受賞クリエイター2名が企画、生成、調整の舞台裏を語るオンラインセミナーです。2026年7月4日開催。一般参加無料。',
       path: '/seminar',
-      robots: 'noindex,nofollow',
-      ogImage: 'https://i.ytimg.com/vi/-QzFBNrApH0/maxresdefault.jpg',
-      ogImageAlt: 'グランプリ作品 白井市クエスト'
+      ogImage: 'https://cdn.peatix.com/event/5055531/cover-WX0eJBm5VlF4awChKQHHjOl4GSbDlVw4.png',
+      ogImageAlt: '地域の魅力を、AIで映像に。オンラインセミナー'
     }
   };
 
@@ -58,7 +57,7 @@
   }
 
   const canonicalUrl = new URL(current.path, window.location.origin).toString();
-  const ogImage = current.ogImage || defaultOgImage;
+  const ogImage = new URL(current.ogImage || defaultOgImage, window.location.origin).toString();
   const ogImageAlt = current.ogImageAlt || '白井市PR動画コンテストのキービジュアル';
 
   document.title = current.title;
